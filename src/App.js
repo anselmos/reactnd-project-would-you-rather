@@ -1,4 +1,5 @@
 import React from "react";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './App.css';
 import './spacer.css';
 import NavigationHeader from "./NavigationHeader";
@@ -26,9 +27,34 @@ class App extends React.Component{
   render(){
     return (
         <div className="App">
-          <NavigationHeader loggedIn={this.state.user}/>
+
+          <BrowserRouter>
+        <NavigationHeader user={this.state.user}/>
           <div className="spacer-header-body"/>
-          <DataBody/>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <DataBody data={"root"}/>
+                )}
+              />
+                <Route
+                exact
+                path="/new_question"
+                render={() => (
+                  <DataBody data={"new_question"}/>
+                )}
+              />
+                              <Route
+                exact
+                path="/leader_board"
+                render={() => (
+                  <DataBody data={"leader_board"}/>
+                )}
+              />
+            </Switch>
+          </BrowserRouter>
         </div>
       );
     };
