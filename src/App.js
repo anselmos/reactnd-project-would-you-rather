@@ -36,11 +36,9 @@ class App extends React.Component{
   }
   render(){
     const { users, loading } = this.props.store.getState()
-      if( loading === true){
-          return <h3>Loading</h3>
-      }else{
-          console.log('changed');
-      }
+    if( loading === true){
+      return <h3>Loading</h3>
+    }
     return (
         <div className="App">
 
