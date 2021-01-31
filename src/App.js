@@ -5,39 +5,13 @@ import './spacer.css';
 import NavigationHeader from "./NavigationHeader";
 import DataBody from "./DataBody";
 import NewQuestion from "./NewQuestion";
-import { createStore, combineReducers, applyMiddleware } from 'redux';
 import {_getUsers} from "./_DATA";
-const RECEIVE_DATA = "RECEIVE_DATA";
-
-function receiveDataAction (users) {
-  return {
-    type: RECEIVE_DATA,
-    users,
-  }
-}
-
-function users(state= [], action){
-    switch(action.type){
-        case RECEIVE_DATA:
-            return action.users
-        default:
-            return state
-    }
-}
-
-const logger = (store) => (next) => (action) => {
-  console.group(action.type)
-    console.log('The action: ', action)
-    const result = next(action)
-    console.log('The new state: ', store.getState())
-  console.groupEnd()
-  return result
-}
-
+import {receiveDataAction} from './users.action';
 async function getOrUpdateUserData(){
     const users = await _getUsers();
-    this.store.dispatch(receiveDataAction(users))
+    this.props.store.dispatch(receiveDataAction(users))
 }
+
 class App extends React.Component{
 
     constructor(props) {
@@ -45,12 +19,9 @@ class App extends React.Component{
         this.state = {
             user: null
         }
-        this.store = createStore(combineReducers({
-            users,
-        }), applyMiddleware(logger))
     }
     handleLogin() {
-        const {users} = this.store.getState();
+        const {users} = this.props.store.getState();
         // TODO change to a state-selected user not hardcoded by one.
         this.setState({user: users.tylermcginnis});
     }
@@ -62,7 +33,7 @@ class App extends React.Component{
         this.setState({user: null});
   }
   render(){
-    const { users } = this.store.getState()
+    const { users } = this.props.store.getState()
     return (
         <div className="App">
 
