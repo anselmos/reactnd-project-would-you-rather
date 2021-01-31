@@ -43,36 +43,16 @@ class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                id: 'sarahedo',
-                name: 'Sarah Edo',
-                avatarURL: '',
-                answers: {
-                  "8xf0y6ziyjabvozdd253nd": 'optionOne',
-                  "6ni6ok3ym7mf1p33lnez": 'optionTwo',
-                  "am8ehyc8byjqgar0jgpub9": 'optionTwo',
-                  "loxhs1bqm25b708cmbf3g": 'optionTwo'
-                },
-                questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9']
-          }
+            user: null
         }
-       this.store = createStore(combineReducers({
+        this.store = createStore(combineReducers({
             users,
         }), applyMiddleware(logger))
     }
     handleLogin() {
-      this.setState({user: {
-            id: 'sarahedo',
-            name: 'Sarah Edo',
-            avatarURL: '',
-            answers: {
-              "8xf0y6ziyjabvozdd253nd": 'optionOne',
-              "6ni6ok3ym7mf1p33lnez": 'optionTwo',
-              "am8ehyc8byjqgar0jgpub9": 'optionTwo',
-              "loxhs1bqm25b708cmbf3g": 'optionTwo'
-            },
-            questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9']
-      }})
+        const {users} = this.store.getState();
+        // TODO change to a state-selected user not hardcoded by one.
+        this.setState({user: users.tylermcginnis});
     }
     componentDidMount() {
         getOrUpdateUserData.call(this);
@@ -82,12 +62,14 @@ class App extends React.Component{
         this.setState({user: null});
   }
   render(){
+    const { users } = this.store.getState()
     return (
         <div className="App">
 
           <BrowserRouter>
         <NavigationHeader
             user={this.state.user}
+            users={users}
             handleLogout={this.handleLogout.bind(this)}
             handleLogin={this.handleLogin.bind(this)}
         />
