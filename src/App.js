@@ -7,6 +7,7 @@ import DataBody from "./DataBody";
 import NewQuestion from "./NewQuestion";
 import {_getUsers} from "./_DATA";
 import {receiveDataAction} from './users.action';
+
 async function getOrUpdateUserData(){
     const users = await _getUsers();
     this.props.store.dispatch(receiveDataAction(users))
@@ -27,13 +28,19 @@ class App extends React.Component{
     }
     componentDidMount() {
         getOrUpdateUserData.call(this);
+        this.props.store.subscribe(() => this.forceUpdate())
     }
 
     handleLogout() {
         this.setState({user: null});
   }
   render(){
-    const { users } = this.props.store.getState()
+    const { users, loading } = this.props.store.getState()
+      if( loading === true){
+          return <h3>Loading</h3>
+      }else{
+          console.log('changed');
+      }
     return (
         <div className="App">
 
