@@ -1,8 +1,8 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
-import {users} from "./users.reducer";
-import {loading} from "./loading.reducer";
+import {users} from "./reducers/users.reducer";
+import {loading} from "./reducers/loading.reducer";
 import {logger} from './logger.middleware';
-import {questions} from './questions.reducer';
+import {questions} from './reducers/questions.reducer';
 
 const store = createStore(
     combineReducers({

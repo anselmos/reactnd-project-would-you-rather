@@ -1,12 +1,12 @@
 import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './App.css';
-import './spacer.css';
+import '../style/spacer.css';
 import NavigationHeader from "./NavigationHeader";
 import DataBody from "./DataBody";
 import NewQuestion from "./NewQuestion";
-import {_getUsers, _getQuestions} from "./_DATA";
-import {receiveDataAction} from './api.action';
+import {_getUsers, _getQuestions} from "../api/_DATA";
+import {receiveDataAction} from '../api/api.action';
 
 
 async function getOrUpdateUserData(){
