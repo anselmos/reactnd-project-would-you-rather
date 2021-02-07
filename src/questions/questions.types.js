@@ -1,0 +1,3 @@
+const ADD_QUESTION = "ADD_QUESTION";
+
+export default ADD_QUESTION

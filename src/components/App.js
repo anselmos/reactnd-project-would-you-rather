@@ -4,7 +4,7 @@ import './App.css';
 import '../style/spacer.css';
 import NavigationHeader from "./NavigationHeader";
 import DataBody from "./DataBody";
-import NewQuestion from "./NewQuestion";
+import NewQuestion from "../questions/NewQuestion";
 import {_getUsers, _getQuestions} from "../api/_DATA";
 import {receiveDataAction} from '../api/api.action';
 
@@ -57,14 +57,14 @@ class App extends React.Component{
                 exact
                 path="/"
                 render={() => (
-                  <DataBody data={questions.toString()} />
+                  <DataBody data="Home" questions={questions} />
                 )}
               />
                 <Route
                 exact
                 path="/new_question"
                 render={() => (
-                  <NewQuestion user={this.state.user}/>
+                  <NewQuestion user={this.state.user} store={this.props.store}/>
                 )}
               />
               <Route
