@@ -1,4 +1,4 @@
-import RECEIVE_DATA from "./users.types";
+import RECEIVE_DATA from "./api.types";
 
 export function users(state= [], action){
     switch(action.type){

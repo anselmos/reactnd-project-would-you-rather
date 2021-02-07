@@ -1,9 +1,9 @@
 import RECEIVE_DATA from "./api.types";
 
-export function loading(state= true, action){
+export function questions(state= [], action){
     switch(action.type){
         case RECEIVE_DATA:
-            return false
+            return action.questions
         default:
             return state
     }

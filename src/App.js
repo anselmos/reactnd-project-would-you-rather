@@ -5,12 +5,14 @@ import './spacer.css';
 import NavigationHeader from "./NavigationHeader";
 import DataBody from "./DataBody";
 import NewQuestion from "./NewQuestion";
-import {_getUsers} from "./_DATA";
-import {receiveDataAction} from './users.action';
+import {_getUsers, _getQuestions} from "./_DATA";
+import {receiveDataAction} from './api.action';
+
 
 async function getOrUpdateUserData(){
     const users = await _getUsers();
-    this.props.store.dispatch(receiveDataAction(users))
+    const questions = await _getQuestions();
+    this.props.store.dispatch(receiveDataAction(users, questions));
 }
 
 class App extends React.Component{
@@ -35,7 +37,7 @@ class App extends React.Component{
         this.setState({user: null});
   }
   render(){
-    const { users, loading } = this.props.store.getState()
+    const { users, loading, questions} = this.props.store.getState()
     if( loading === true){
       return <h3>Loading</h3>
     }
@@ -55,7 +57,7 @@ class App extends React.Component{
                 exact
                 path="/"
                 render={() => (
-                  <DataBody data={"root"}/>
+                  <DataBody data={questions.toString()} />
                 )}
               />
                 <Route
