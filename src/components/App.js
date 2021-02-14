@@ -1,52 +1,53 @@
 import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './App.css';
-import './spacer.css';
+import '../style/spacer.css';
 import NavigationHeader from "./NavigationHeader";
 import DataBody from "./DataBody";
-import NewQuestion from "./NewQuestion";
+import NewQuestion from "../questions/NewQuestion";
+import {_getUsers, _getQuestions} from "../api/_DATA";
+import {receiveDataAction} from '../api/api.action';
+
+
+async function getOrUpdateUserData(){
+    const users = await _getUsers();
+    const questions = await _getQuestions();
+    this.props.store.dispatch(receiveDataAction(users, questions));
+}
+
 class App extends React.Component{
+
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                id: 'sarahedo',
-                name: 'Sarah Edo',
-                avatarURL: '',
-                answers: {
-                  "8xf0y6ziyjabvozdd253nd": 'optionOne',
-                  "6ni6ok3ym7mf1p33lnez": 'optionTwo',
-                  "am8ehyc8byjqgar0jgpub9": 'optionTwo',
-                  "loxhs1bqm25b708cmbf3g": 'optionTwo'
-                },
-                questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9']
-          }
+            user: null
         }
     }
     handleLogin() {
-      this.setState({user: {
-            id: 'sarahedo',
-            name: 'Sarah Edo',
-            avatarURL: '',
-            answers: {
-              "8xf0y6ziyjabvozdd253nd": 'optionOne',
-              "6ni6ok3ym7mf1p33lnez": 'optionTwo',
-              "am8ehyc8byjqgar0jgpub9": 'optionTwo',
-              "loxhs1bqm25b708cmbf3g": 'optionTwo'
-            },
-            questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9']
-      }})
+        const {users} = this.props.store.getState();
+        // TODO change to a state-selected user not hardcoded by one.
+        this.setState({user: users.tylermcginnis});
     }
-  handleLogout() {
+    componentDidMount() {
+        getOrUpdateUserData.call(this);
+        this.props.store.subscribe(() => this.forceUpdate())
+    }
+
+    handleLogout() {
         this.setState({user: null});
   }
   render(){
+    const { users, loading, questions} = this.props.store.getState()
+    if( loading === true){
+      return <h3>Loading</h3>
+    }
     return (
         <div className="App">
 
           <BrowserRouter>
         <NavigationHeader
             user={this.state.user}
+            users={users}
             handleLogout={this.handleLogout.bind(this)}
             handleLogin={this.handleLogin.bind(this)}
         />
@@ -56,14 +57,14 @@ class App extends React.Component{
                 exact
                 path="/"
                 render={() => (
-                  <DataBody data={"root"}/>
+                  <DataBody data="Home" questions={questions} />
                 )}
               />
                 <Route
                 exact
                 path="/new_question"
                 render={() => (
-                  <NewQuestion user={this.state.user}/>
+                  <NewQuestion user={this.state.user} store={this.props.store}/>
                 )}
               />
               <Route
