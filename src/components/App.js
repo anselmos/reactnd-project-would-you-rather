@@ -7,7 +7,7 @@ import DataBody from "./DataBody";
 import NewQuestion from "../questions/NewQuestion";
 import {_getUsers, _getQuestions} from "../api/_DATA";
 import {receiveDataAction} from '../api/api.action';
-
+import Login from "./Login";
 
 async function getOrUpdateUserData(){
     const users = await _getUsers();
@@ -23,10 +23,8 @@ class App extends React.Component{
             user: null
         }
     }
-    handleLogin() {
-        const {users} = this.props.store.getState();
-        // TODO change to a state-selected user not hardcoded by one.
-        this.setState({user: users.tylermcginnis});
+    handleLogin(selectedUser) {
+        this.setState({user: selectedUser});
     }
     componentDidMount() {
         getOrUpdateUserData.call(this);
@@ -49,7 +47,6 @@ class App extends React.Component{
             user={this.state.user}
             users={users}
             handleLogout={this.handleLogout.bind(this)}
-            handleLogin={this.handleLogin.bind(this)}
         />
           <div className="spacer-header-body"/>
             <Switch>
@@ -74,11 +71,21 @@ class App extends React.Component{
                   <DataBody data={"leader_board"}/>
                 )}
               />
-                <Route
+               <Route
                 exact
                 path="/logout"
                 render={() => (
                   <DataBody data={"leader_board"}/>
+                )}
+              />
+              <Route
+                exact
+                path="/login"
+                render={() => (
+                  <Login
+                      store={this.props.store}
+                      handleLogin={this.handleLogin.bind(this)}
+                  />
                 )}
               />
             </Switch>
