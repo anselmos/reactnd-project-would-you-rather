@@ -8,6 +8,7 @@ import NewQuestion from "../questions/NewQuestion";
 import {_getUsers, _getQuestions} from "../api/_DATA";
 import {receiveDataAction} from '../api/api.action';
 import Login from "./Login";
+import Home from "./Home";
 
 async function getOrUpdateUserData(){
     const users = await _getUsers();
@@ -54,7 +55,7 @@ class App extends React.Component{
                 exact
                 path="/"
                 render={() => (
-                  <DataBody data="Home" questions={questions} />
+                  <Home questions={questions}/>
                 )}
               />
                 <Route
