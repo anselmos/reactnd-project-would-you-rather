@@ -13,7 +13,7 @@ handleLogout,
         history.push('/new_question');
     }
     const handleLeaderBoard = (history) => {
-        history.push('/leader_board');
+        history.push('/leaderboard');
     }
     const handleLogoutBtn = (history) => {
         handleLogout();

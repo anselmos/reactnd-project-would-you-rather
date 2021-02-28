@@ -62,9 +62,9 @@ class App extends React.Component{
                 )}
               />
               <Route
-                path="/leader_board"
+                path="/leaderboard"
                 render={() => (
-                  <DataBody user={this.state.user} data={"leader_board"}/>
+                  <DataBody user={this.state.user} data={"leaderboard"}/>
                 )}
               />
                <Route
