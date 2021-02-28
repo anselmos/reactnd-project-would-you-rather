@@ -55,8 +55,34 @@ class App extends React.Component{
         />
           <div className="spacer-header-body"/>
             <Switch>
+                <Route
+                path="/new_question"
+                render={() => (
+                  <NewQuestion user={this.state.user} store={this.props.store}/>
+                )}
+              />
               <Route
-                exact
+                path="/leader_board"
+                render={() => (
+                  <DataBody user={this.state.user} data={"leader_board"}/>
+                )}
+              />
+               <Route
+                path="/logout"
+                render={() => (
+                  <DataBody user={this.state.user} data="logged-out" />
+                )}
+              />
+              <Route
+                path="/login"
+                render={() => (
+                  <Login
+                      store={this.props.store}
+                      handleLogin={this.handleLogin.bind(this)}
+                  />
+                )}
+              />
+            <Route
                 path="/"
                 render={() => (
                   <Home
@@ -65,37 +91,6 @@ class App extends React.Component{
                       user={this.state.user}
                       store={this.props.store}
                       answeredToggleCallback={this.handleAnsweredToggle.bind(this)}
-                  />
-                )}
-              />
-                <Route
-                exact
-                path="/new_question"
-                render={() => (
-                  <NewQuestion user={this.state.user} store={this.props.store}/>
-                )}
-              />
-              <Route
-                exact
-                path="/leader_board"
-                render={() => (
-                  <DataBody user={this.state.user} data={"leader_board"}/>
-                )}
-              />
-               <Route
-                exact
-                path="/logout"
-                render={() => (
-                  <DataBody user={this.state.user} data={"leader_board"}/>
-                )}
-              />
-              <Route
-                exact
-                path="/login"
-                render={() => (
-                  <Login
-                      store={this.props.store}
-                      handleLogin={this.handleLogin.bind(this)}
                   />
                 )}
               />
