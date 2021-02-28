@@ -9,6 +9,7 @@ import {_getUsers, _getQuestions} from "../api/_DATA";
 import {receiveDataAction} from '../api/api.action';
 import Login from "./Login";
 import Home from "./Home";
+import Leaderboard from "./Leaderboard";
 
 async function getOrUpdateUserData(){
     const users = await _getUsers();
@@ -44,6 +45,7 @@ class App extends React.Component{
     if( loading === true){
       return <h3>Loading</h3>
     }
+    /// FIXME move from using props into only store!! i.e. replace questions with store.getState in Home.
     return (
         <div className="App">
 
@@ -64,7 +66,10 @@ class App extends React.Component{
               <Route
                 path="/leaderboard"
                 render={() => (
-                  <DataBody user={this.state.user} data={"leaderboard"}/>
+                  <Leaderboard
+                      user={this.state.user}
+                      store={this.props.store}
+                  />
                 )}
               />
                <Route
