@@ -2,27 +2,40 @@ import React from "react";
 import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
 
-function Home({data, questions = null}) {
-
+function Home({questions = null, user}) {
+    if(user === null){
+        return (
+            <div> Please log in!</div>
+        )
+    }
     let renderQuestions = null;
     if(questions !== null){
         // FIXME add here bind for voting call.
          const data = Object.keys(questions).map(key =>
              (
-                <QuestionVote question={questions[key]} />
+                <QuestionVote question={questions[key]} user={user} />
              )
         );
         renderQuestions  = (
             <div><h1>Questions:</h1>
-                {data}
+                <table>
+                <tr>
+                    <th>Option One</th>
+                    <th>Option Two</th>
+                    <th>Voted on Option one</th>
+                    <th>Voted on Option two</th>
+                    <th>Vote</th>
+                </tr>
+                    {data}
+                </table>
+
             </div>
         )
     }
+
     return (
         <div className="navigation-header">
-            {data}
             {renderQuestions}
-
         </div>
     )
 }
@@ -30,8 +43,8 @@ function Home({data, questions = null}) {
 
 Home.propTypes = {
     // TODO update to object since this is what it will be in future.
-  data: PropTypes.string.isRequired,
   questions: PropTypes.object,
+  user: PropTypes.object,
 
 }
 export default Home;
