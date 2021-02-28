@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
 
+// The user can alternate between viewing answered and unanswered polls.
+// FIXME change into class based since I will need additional props.
+
 
 function Home({questions = null, user, store}) {
     function voteCallbackFunction(vote, question){
-        // console.log("user id: ", user.id, " Vote: -> ", vote, " for question: ", question)
-        // console.log(vote === OPTION_ONE ? OPTION_ONE: vote ===OPTION_TWO ? OPTION_TWO : null)
-        // console.log(question)
        store.dispatch(
             voteOnQuestionAction(user, vote, question)
         )
@@ -20,7 +20,6 @@ function Home({questions = null, user, store}) {
     }
     let renderQuestions = null;
     if(questions !== null){
-        // FIXME add here bind for voting call.
          const data = Object.keys(questions).map(key =>
              (
                 <QuestionVote question={questions[key]} user={user} voteCallback={voteCallbackFunction}/>

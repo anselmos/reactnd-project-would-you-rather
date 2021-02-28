@@ -25,7 +25,7 @@ class NewQuestion extends React.Component {
     render() {
         if(this.props.user === null){
             return (
-            <div> Please log in!</div>
+            <div>Please log in!</div>
             )
         }
         return (
