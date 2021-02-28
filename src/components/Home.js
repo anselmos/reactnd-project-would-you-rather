@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
 import {voteUser} from "../users/users.action";
-
+function sort_questions([a_key, a_value], [b_key, b_value]) {
+    return (
+        b_value.timestamp - a_value.timestamp
+    );
+}
 function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
     const { questions} = store.getState()
     function voteCallbackFunction(vote, question){
@@ -35,7 +39,7 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
                 )
             );
         }
-        const data = Object.keys(new_questions).map(key =>
+        const data = Object.entries(new_questions).sort(sort_questions).map(([key, value]) =>
              (
                 <QuestionVote key={key} question={new_questions[key]} user={user} voteCallback={voteCallbackFunction}/>
              )
