@@ -4,7 +4,7 @@ The project uses react and redux for making a simple Would-you-rather questionna
 - adding new questions
 - voting
 - leaderboard ( for how many questions created and answered.)
-- an hard-coded login setup (maybe updated to registration/login in future)
+- hard-coded login setup (maybe updated to registration/login in future)
 
 ## Available scripts:
 
