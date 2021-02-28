@@ -11,14 +11,11 @@ export function questions(state= [], action){
         case VOTE_QUESTION:
             let voteDataQuestion = { ...state};
             if(action.vote === OPTION_ONE){
-                voteDataQuestion[action.question.id].optionOne.votes = [
-                    voteDataQuestion[action.question.id].optionOne.votes, action.user.id
-                ]
+                voteDataQuestion[action.question.id].optionOne.votes = voteDataQuestion[action.question.id].optionOne.votes.concat(action.user.id)
+
             }
             if(action.vote === OPTION_TWO) {
-                voteDataQuestion[action.question.id].optionTwo.votes = [
-                    voteDataQuestion[action.question.id].optionTwo.votes, action.user.id
-                ]
+                voteDataQuestion[action.question.id].optionTwo.votes = voteDataQuestion[action.question.id].optionTwo.votes.concat(action.user.id)
             }
             return voteDataQuestion;
         case RECEIVE_DATA:
