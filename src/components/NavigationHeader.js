@@ -20,6 +20,7 @@ handleLogout,
         history.push('/logout');
     }
     const handleLoginBtn = (history) => {
+        // FIXME change into previous url!
         history.push('/login');
     }
     let userLoginData = (<button onClick={handleLoginBtn.bind(this, history)}>Login</button>);
