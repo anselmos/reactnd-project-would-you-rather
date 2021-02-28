@@ -2,6 +2,7 @@ import React from "react";
 // import PropTypes from "prop-types";
 import {addQuestionAction} from './questions.action'
 import {formatQuestion} from '../api/_DATA';
+import {newQuestionUser} from '../users/users.action'
 
 class NewQuestion extends React.Component {
     addItem = (e) => {
@@ -17,9 +18,11 @@ class NewQuestion extends React.Component {
                 author:this.props.user
             }
         )
-        // FIXME add information to user that he/she added new question in here profile!
         this.props.store.dispatch(
             addQuestionAction(question)
+        )
+        this.props.store.dispatch(
+            newQuestionUser(this.props.user, question)
         )
     }
 
