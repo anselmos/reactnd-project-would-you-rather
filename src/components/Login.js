@@ -12,7 +12,7 @@ function Login({store, handleLogin}) {
     if(users !== null){
          const data = Object.keys(users).map(key =>
              (
-                <div>
+                <div key={key}>
                     <button onClick={handleLoginBtn.bind(this, users[key])}>Login as {users[key].name}</button>
                 </div>
              )
