@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
-import {users} from "./reducers/users.reducer";
+import {users} from "./users/users.reducer";
 import {loading} from "./reducers/loading.reducer";
 import {logger} from './logger.middleware';
 import {questions} from './questions/questions.reducer';

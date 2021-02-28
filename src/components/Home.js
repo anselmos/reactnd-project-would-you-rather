@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
+import {voteUser} from "../users/users.action";
 
 // FIXME change into class based since I will need additional props.
 
@@ -10,6 +11,9 @@ function Home({questions = null, user, store, answeredToggle=false, answeredTogg
     function voteCallbackFunction(vote, question){
         store.dispatch(
             voteOnQuestionAction(user, vote, question)
+        )
+        store.dispatch(
+            voteUser(user, vote, question)
         )
     }
     if(user === null){

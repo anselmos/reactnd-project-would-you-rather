@@ -68,7 +68,7 @@ class App extends React.Component{
                 render={() => (
                   <Leaderboard
                       user={this.state.user}
-                      store={this.props.store}
+                      users={users}
                   />
                 )}
               />

@@ -1,17 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import QuestionVote from "./QuestionVote";
 
 
-function Leaderboard({user, store}) {
+function Leaderboard({user, users}) {
     if(user === null){
         return (
             <div> Please log in!</div>
         )
     }
-    const { users, loading, questions } = store.getState();
     // FIXME move this business-logic into redux!!!!!
-
     // to reverse the sort you would need to move a_value first : a_value - b_value
     const users_data = Object.entries(users).sort(
     function([a_key, a_value], [b_key, b_value]) {
@@ -35,17 +32,12 @@ function Leaderboard({user, store}) {
                             height="100"
                             alt={value.name}
                         /></td>
-                     <td>{Object.keys(value.answers).length}</td>
                      <td>{Object.keys(value.questions).length}</td>
-                     {/*<td>{users[key].questions.count()}</td>*/}
+                     <td>{Object.keys(value.answers).length}</td>
                  </tr>
          )
     );
 
-    //the user’s name;
-    // the user’s picture;
-    // the number of questions the user asked; and
-    // the number of questions the user answered.
     return (
         <div className="navigation-header">
             <table>

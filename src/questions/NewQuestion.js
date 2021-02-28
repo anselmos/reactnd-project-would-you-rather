@@ -17,6 +17,7 @@ class NewQuestion extends React.Component {
                 author:this.props.user
             }
         )
+        // FIXME add information to user that he/she added new question in here profile!
         this.props.store.dispatch(
             addQuestionAction(question)
         )
