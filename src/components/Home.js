@@ -22,20 +22,23 @@ function Home({questions = null, user, store}) {
     if(questions !== null){
          const data = Object.keys(questions).map(key =>
              (
-                <QuestionVote question={questions[key]} user={user} voteCallback={voteCallbackFunction}/>
+                <QuestionVote key={key} question={questions[key]} user={user} voteCallback={voteCallbackFunction}/>
              )
         );
         renderQuestions  = (
-            <div><h1>Questions:</h1>
+            <div>
+                <h1>Questions:</h1>
                 <table>
-                <tr>
-                    <th>Option One</th>
-                    <th>Option Two</th>
-                    <th>Voted on Option one</th>
-                    <th>Voted on Option two</th>
-                    <th>Voted?</th>
-                </tr>
-                    {data}
+                    <tbody>
+                        <tr>
+                            <th>Option One</th>
+                            <th>Option Two</th>
+                            <th>Voted on Option one</th>
+                            <th>Voted on Option two</th>
+                            <th>Voted?</th>
+                        </tr>
+                            {data}
+                    </tbody>
                 </table>
             </div>
         )

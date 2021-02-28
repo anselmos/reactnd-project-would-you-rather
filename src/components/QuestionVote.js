@@ -7,7 +7,7 @@ function QuestionVote({question, user, voteCallback}) {
 
     const user_voted = question.optionOne.votes.includes(user.id) || question.optionTwo.votes.includes(user.id)
     return (
-                <tr style={{backgroundColor: user_voted? "green" : "red"}}>
+                <tr key={question.id} style={{backgroundColor: user_voted? "green" : "red"}}>
                     <td>
                         {question.optionOne.text}
                         {user_voted ? "" : <button onClick={voteCallback.bind(user, OPTION_ONE, question)}>Vote </button>}
