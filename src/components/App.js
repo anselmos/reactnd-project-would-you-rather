@@ -56,7 +56,7 @@ class App extends React.Component{
           <div className="spacer-header-body"/>
             <Switch>
                 <Route
-                path="/new_question"
+                path="/add"
                 render={() => (
                   <NewQuestion user={this.state.user} store={this.props.store}/>
                 )}
