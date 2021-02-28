@@ -2,7 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
 
-function Home({questions = null, user}) {
+function Home({questions = null, user, store}) {
+    function voteCallbackFunction(){
+        // FIXME add a redux store setup for making vote here.
+        //        store.dispatch(
+        //             addQuestionAction(question)
+        //         )
+        console.log(this)
+    }
     if(user === null){
         return (
             <div> Please log in!</div>
@@ -13,7 +20,7 @@ function Home({questions = null, user}) {
         // FIXME add here bind for voting call.
          const data = Object.keys(questions).map(key =>
              (
-                <QuestionVote question={questions[key]} user={user} />
+                <QuestionVote question={questions[key]} user={user} voteCallback={voteCallbackFunction}/>
              )
         );
         renderQuestions  = (
@@ -24,11 +31,10 @@ function Home({questions = null, user}) {
                     <th>Option Two</th>
                     <th>Voted on Option one</th>
                     <th>Voted on Option two</th>
-                    <th>Vote</th>
+                    <th>Voted?</th>
                 </tr>
                     {data}
                 </table>
-
             </div>
         )
     }
@@ -45,6 +51,7 @@ Home.propTypes = {
     // TODO update to object since this is what it will be in future.
   questions: PropTypes.object,
   user: PropTypes.object,
+  store: PropTypes.object,
 
 }
 export default Home;

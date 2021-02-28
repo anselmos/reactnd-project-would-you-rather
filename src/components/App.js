@@ -55,7 +55,7 @@ class App extends React.Component{
                 exact
                 path="/"
                 render={() => (
-                  <Home questions={questions} user={this.state.user}/>
+                  <Home questions={questions} user={this.state.user} store={this.props.store}/>
                 )}
               />
                 <Route
