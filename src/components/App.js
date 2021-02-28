@@ -3,7 +3,6 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './App.css';
 import '../style/spacer.css';
 import NavigationHeader from "./NavigationHeader";
-import DataBody from "./DataBody";
 import NewQuestion from "../questions/NewQuestion";
 import {_getUsers, _getQuestions} from "../api/_DATA";
 import {receiveDataAction} from '../api/api.action';
@@ -45,14 +44,12 @@ class App extends React.Component{
     if( loading === true){
       return <h3>Loading</h3>
     }
-    /// FIXME move from using props into only store!! i.e. replace questions with store.getState in Home.
     return (
         <div className="App">
 
           <BrowserRouter>
         <NavigationHeader
             user={this.state.user}
-            users={users}
             handleLogout={this.handleLogout.bind(this)}
         />
           <div className="spacer-header-body"/>
@@ -68,14 +65,14 @@ class App extends React.Component{
                 render={() => (
                   <Leaderboard
                       user={this.state.user}
-                      users={users}
+                      store={this.props.store}
                   />
                 )}
               />
                <Route
                 path="/logout"
                 render={() => (
-                  <DataBody user={this.state.user} data="logged-out" />
+                    <div> Logged-out. Please log-in.</div>
                 )}
               />
               <Route
@@ -92,7 +89,6 @@ class App extends React.Component{
                 render={() => (
                   <Home
                       answeredToggle={this.state.show_answered}
-                      questions={questions}
                       user={this.state.user}
                       store={this.props.store}
                       answeredToggleCallback={this.handleAnsweredToggle.bind(this)}

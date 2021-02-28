@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 
-function Leaderboard({user, users}) {
+function Leaderboard({user, store}) {
+    const { users, loading, questions} = store.getState()
     if(user === null){
         return (
             <div> Please log in!</div>
@@ -59,8 +60,6 @@ function Leaderboard({user, users}) {
 
 
 Leaderboard.propTypes = {
-    // TODO update to object since this is what it will be in future.
-  questions: PropTypes.object,
   user: PropTypes.object,
   store: PropTypes.object,
 

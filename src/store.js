@@ -8,7 +8,7 @@ const store = createStore(
     combineReducers({
     users, loading, questions
     }),
-    // FIXME remove later - only for debugging
+    // TODO this is only for debugging.
 window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     applyMiddleware(logger)
 )

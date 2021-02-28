@@ -4,10 +4,8 @@ import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
 import {voteUser} from "../users/users.action";
 
-// FIXME change into class based since I will need additional props.
-
-
-function Home({questions = null, user, store, answeredToggle=false, answeredToggleCallback}) {
+function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
+    const { questions} = store.getState()
     function voteCallbackFunction(vote, question){
         store.dispatch(
             voteOnQuestionAction(user, vote, question)
@@ -23,22 +21,23 @@ function Home({questions = null, user, store, answeredToggle=false, answeredTogg
     }
     let renderQuestions = null;
     if(questions !== null){
+        let new_questions = null;
         if(answeredToggle){
-            questions = Object.fromEntries(
+            new_questions = Object.fromEntries(
                 Object.entries(questions).filter(
                     ([k, v]) => v.optionOne.votes.includes(user.id) || v.optionTwo.votes.includes(user.id)
                 )
             );
         }else{
-            questions = Object.fromEntries(
+            new_questions = Object.fromEntries(
                 Object.entries(questions).filter(
                     ([k, v]) => !(v.optionOne.votes.includes(user.id)) && !(v.optionTwo.votes.includes(user.id))
                 )
             );
         }
-        const data = Object.keys(questions).map(key =>
+        const data = Object.keys(new_questions).map(key =>
              (
-                <QuestionVote key={key} question={questions[key]} user={user} voteCallback={voteCallbackFunction}/>
+                <QuestionVote key={key} question={new_questions[key]} user={user} voteCallback={voteCallbackFunction}/>
              )
         );
         renderQuestions  = (
@@ -71,10 +70,10 @@ function Home({questions = null, user, store, answeredToggle=false, answeredTogg
 
 
 Home.propTypes = {
-    // TODO update to object since this is what it will be in future.
-  questions: PropTypes.object,
   user: PropTypes.object,
   store: PropTypes.object,
+  answeredToggle: PropTypes.bool,
+  answeredToggleCallback: PropTypes.func,
 
 }
 export default Home;
