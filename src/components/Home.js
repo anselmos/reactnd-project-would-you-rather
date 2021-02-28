@@ -1,14 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
+import {voteOnQuestionAction} from '../questions/questions.action'
+
 
 function Home({questions = null, user, store}) {
-    function voteCallbackFunction(){
-        // FIXME add a redux store setup for making vote here.
-        //        store.dispatch(
-        //             addQuestionAction(question)
-        //         )
-        console.log(this)
+    function voteCallbackFunction(vote, question){
+        // console.log("user id: ", user.id, " Vote: -> ", vote, " for question: ", question)
+        // console.log(vote === OPTION_ONE ? OPTION_ONE: vote ===OPTION_TWO ? OPTION_TWO : null)
+        // console.log(question)
+       store.dispatch(
+            voteOnQuestionAction(user, vote, question)
+        )
     }
     if(user === null){
         return (

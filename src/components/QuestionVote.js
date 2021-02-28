@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+export const OPTION_ONE=1
+export const OPTION_TWO=2
 
 function QuestionVote({question, user, voteCallback}) {
 
@@ -9,11 +10,11 @@ function QuestionVote({question, user, voteCallback}) {
                 <tr style={{backgroundColor: user_voted? "green" : "red"}}>
                     <td>
                         {question.optionOne.text}
-                        {user_voted ? "" : <button onClick={voteCallback.bind(question.optionOne)}>Vote </button>}
+                        {user_voted ? "" : <button onClick={voteCallback.bind(user, OPTION_ONE, question)}>Vote </button>}
                     </td>
                     <td>
                         {question.optionTwo.text}
-                        {user_voted ? "" : <button onClick={voteCallback.bind(question.optionTwo)}>Vote </button>}
+                        {user_voted ? "" : <button onClick={voteCallback.bind(user, OPTION_TWO, question)}>Vote </button>}
                     </td>
                     <td>{question.optionOne.votes.join(", ")}</td>
                     <td>{question.optionTwo.votes.join(", ")}</td>
