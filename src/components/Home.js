@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
 
-// The user can alternate between viewing answered and unanswered polls.
 // FIXME change into class based since I will need additional props.
 
 
-function Home({questions = null, user, store}) {
+function Home({questions = null, user, store, answeredToggle=false, answeredToggleCallback}) {
     function voteCallbackFunction(vote, question){
-       store.dispatch(
+        store.dispatch(
             voteOnQuestionAction(user, vote, question)
         )
     }
@@ -20,7 +19,20 @@ function Home({questions = null, user, store}) {
     }
     let renderQuestions = null;
     if(questions !== null){
-         const data = Object.keys(questions).map(key =>
+        if(answeredToggle){
+            questions = Object.fromEntries(
+                Object.entries(questions).filter(
+                    ([k, v]) => v.optionOne.votes.includes(user.id) || v.optionTwo.votes.includes(user.id)
+                )
+            );
+        }else{
+            questions = Object.fromEntries(
+                Object.entries(questions).filter(
+                    ([k, v]) => !(v.optionOne.votes.includes(user.id)) && !(v.optionTwo.votes.includes(user.id))
+                )
+            );
+        }
+        const data = Object.keys(questions).map(key =>
              (
                 <QuestionVote key={key} question={questions[key]} user={user} voteCallback={voteCallbackFunction}/>
              )
@@ -45,7 +57,9 @@ function Home({questions = null, user, store}) {
     }
 
     return (
+
         <div className="navigation-header">
+        Show answered ? <input type="checkbox" onClick={answeredToggleCallback}/>
             {renderQuestions}
         </div>
     )

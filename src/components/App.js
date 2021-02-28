@@ -21,7 +21,8 @@ class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            user: null
+            user: null,
+            show_answered: false
         }
     }
     handleLogin(selectedUser) {
@@ -34,7 +35,10 @@ class App extends React.Component{
 
     handleLogout() {
         this.setState({user: null});
-  }
+    }
+    handleAnsweredToggle(){
+        this.setState({show_answered: !this.state.show_answered})
+    }
   render(){
     const { users, loading, questions} = this.props.store.getState()
     if( loading === true){
@@ -55,7 +59,13 @@ class App extends React.Component{
                 exact
                 path="/"
                 render={() => (
-                  <Home questions={questions} user={this.state.user} store={this.props.store}/>
+                  <Home
+                      answeredToggle={this.state.show_answered}
+                      questions={questions}
+                      user={this.state.user}
+                      store={this.props.store}
+                      answeredToggleCallback={this.handleAnsweredToggle.bind(this)}
+                  />
                 )}
               />
                 <Route
