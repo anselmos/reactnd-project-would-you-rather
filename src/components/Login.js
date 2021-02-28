@@ -13,7 +13,17 @@ function Login({store, handleLogin}) {
          const data = Object.keys(users).map(key =>
              (
                 <div key={key}>
-                    <button onClick={handleLoginBtn.bind(this, users[key])}>Login as {users[key].name}  <img src={users[key].avatarURL} width="100" height="100" alt={users[key].name}/> </button>
+                    <button
+                        onClick={handleLoginBtn.bind(this, users[key])}
+                    >
+                        Login as {users[key].name}
+                        <img
+                            src={users[key].avatarURL}
+                            width="100"
+                            height="100"
+                            alt={users[key].name}
+                        />
+                    </button>
 
                 </div>
              )
