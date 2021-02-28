@@ -69,14 +69,14 @@ class App extends React.Component{
                 exact
                 path="/leader_board"
                 render={() => (
-                  <DataBody data={"leader_board"}/>
+                  <DataBody user={this.state.user} data={"leader_board"}/>
                 )}
               />
                <Route
                 exact
                 path="/logout"
                 render={() => (
-                  <DataBody data={"leader_board"}/>
+                  <DataBody user={this.state.user} data={"leader_board"}/>
                 )}
               />
               <Route

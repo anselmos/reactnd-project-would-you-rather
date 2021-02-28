@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function DataBody({data, questions = null}) {
-
+function DataBody({data, user, questions = null}) {
+    if(user === null){
+        return (
+            <div> Please log in!</div>
+        )
+    }
     let renderQuestions = null;
     if(questions !== null){
          const data = Object.keys(questions).map(key =>

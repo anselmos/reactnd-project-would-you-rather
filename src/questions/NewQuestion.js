@@ -21,7 +21,13 @@ class NewQuestion extends React.Component {
             addQuestionAction(question)
         )
     }
+
     render() {
+        if(this.props.user === null){
+            return (
+            <div> Please log in!</div>
+            )
+        }
         return (
 
             <div className="new-question-top">
