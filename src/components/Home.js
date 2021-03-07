@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
-import {voteUser} from "../users/users.action";
+import {voteUserAction} from "../users/users.action";
 import {isLogged} from "../users/user.utils";
 function sort_questions([a_key, a_value], [b_key, b_value]) {
     return (
@@ -14,7 +14,7 @@ export function voteCallbackFunction(user, vote, question, store){
         voteOnQuestionAction(user, vote, question)
     )
     store.dispatch(
-        voteUser(user, vote, question)
+        voteUserAction(user, vote, question)
     )
 }
 function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
