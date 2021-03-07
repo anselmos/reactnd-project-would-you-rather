@@ -13,18 +13,11 @@ describe('todos reducer', () => {
     const question = {id: "question2"}
     const expectedState = {[user.id]: {answers: {[ "question1"]: "optionOne", ["question2"]: "optionTwo"}}}
     expect(
-      reducer.users(state, {
+      reducer.users({...state}, {
         type: types.VOTE_USER,
         user: user, vote: vote, question: question
       })
     ).toEqual(expectedState)
-    // FIXME this is wrong :( why ???
-    expect(
-      reducer.users(state, {
-        type: types.VOTE_USER,
-        user: user, vote: vote, question: question
-      })
-    ).toEqual({...state})
 
   })
 })

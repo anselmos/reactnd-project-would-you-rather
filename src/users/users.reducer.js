@@ -19,7 +19,7 @@ export function users(state= {}, action){
         case QUESTION_USER:
             let userQuestion = { ...state};
             userQuestion[action.user.id].questions = userQuestion[action.user.id].questions.concat(action.question.id)
-            return state;
+            return userQuestion;
         default:
             return state
     }
