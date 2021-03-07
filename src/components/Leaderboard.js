@@ -1,13 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+// to reverse the sort you would need to move a_value first : a_value - b_value
 function sort_questions_answeres_count([a_key, a_value], [b_key, b_value]) {
     return (
-        (Object.keys(b_value.answers).length +
-        Object.keys(b_value.questions).length)
+        (
+            Object.keys(b_value.answers).length +
+            Object.keys(b_value.questions).length
+        )
         -
-        (Object.keys(a_value.answers).length +
-        Object.keys(a_value.questions).length )
+        (
+            Object.keys(a_value.answers).length +
+            Object.keys(a_value.questions).length
+        )
     );
 }
 function Leaderboard({user, store}) {
@@ -17,7 +22,6 @@ function Leaderboard({user, store}) {
             <div> Please log in!</div>
         )
     }
-    // to reverse the sort you would need to move a_value first : a_value - b_value
     const users_data = Object.entries(users).sort(
             sort_questions_answeres_count
         ).map(([key, value]) =>
