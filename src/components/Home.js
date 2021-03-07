@@ -41,13 +41,18 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
         }
         const data = Object.entries(new_questions).sort(sort_questions).map(([key, value]) =>
             (
-                <QuestionVote users={users} key={key} question={new_questions[key]} user={user}
-                              voteCallback={voteCallbackFunction}/>
+                <QuestionVote
+                    users={users}
+                    key={key}
+                    question={new_questions[key]}
+                    user={user}
+                    voteCallback={voteCallbackFunction}
+                />
             )
         );
         renderQuestions = (
             <div>
-                <h1>Questions:</h1>
+                <h1>Questions {answeredToggle? "answered": "unanswered"}:</h1>
                 <table>
                     <tbody>
                     <tr>
@@ -55,9 +60,8 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
                         <th>Pic. of question creator.</th>
                         <th>Option One</th>
                         <th>Option Two</th>
-                        <th>Voted on Option one</th>
-                        <th>Voted on Option two</th>
-                        <th>Voted?</th>
+                        <th>Nb of people Voted on user Option:</th>
+                        <th>Percentage of people Voted on user Option:</th>
                     </tr>
                     {data}
                     </tbody>

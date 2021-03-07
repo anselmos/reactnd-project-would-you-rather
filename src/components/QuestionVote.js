@@ -5,7 +5,10 @@ export const OPTION_TWO=2
 
 function QuestionVote({users, question, user, voteCallback}) {
 
-    const user_voted = question.optionOne.votes.includes(user.id) || question.optionTwo.votes.includes(user.id)
+    const user_voted = (
+        question.optionOne.votes.includes(user.id)? OPTION_ONE:
+            question.optionTwo.votes.includes(user.id) ? OPTION_TWO : null
+    );
     const userAvatarUrl = (
         <div>
             <img
@@ -17,23 +20,23 @@ function QuestionVote({users, question, user, voteCallback}) {
         </div>
 
     )
+    // TODO!!
+    let number_of_votes_for_user_option = 0;
+    let percentage_of_votes_for_user_option = 0;
     return (
-                <tr key={question.id} style={{backgroundColor: user_voted? "green" : "red"}}>
+                <tr key={question.id}>
                     <td>{question.id}</td>
                     <td>{userAvatarUrl}</td>
-                    <td>
+                    <td style={{backgroundColor: user_voted !== null? user_voted === OPTION_ONE? "green" : '': ''}}>
                         {question.optionOne.text}
                         {user_voted ? "" : <button onClick={voteCallback.bind(user, OPTION_ONE, question)}>Vote </button>}
                     </td>
-                    <td>
+                    <td style={{backgroundColor: user_voted !== null? user_voted === OPTION_TWO? "green"  : '': ''}}>
                         {question.optionTwo.text}
                         {user_voted ? "" : <button onClick={voteCallback.bind(user, OPTION_TWO, question)}>Vote </button>}
                     </td>
-                    <td>{question.optionOne.votes.join(", ")}</td>
-                    <td>{question.optionTwo.votes.join(", ")}</td>
-                    <td>
-                        {user_voted ? "Voted": "Not voted"}
-                    </td>
+                    <td>{ user_voted? number_of_votes_for_user_option: "N/A"}</td>
+                    <td>{ user_voted? percentage_of_votes_for_user_option: "N/A"}</td>
                 </tr>
     )
 }
