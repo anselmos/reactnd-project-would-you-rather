@@ -4,10 +4,13 @@ import './style/index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
+import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
+                <BrowserRouter>
     <App store={store}/>
+              </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

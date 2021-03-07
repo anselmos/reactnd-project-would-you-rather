@@ -1,15 +1,15 @@
 import React from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Route, Switch, withRouter} from "react-router-dom";
 import './App.css';
 import '../style/spacer.css';
 import NavigationHeader from "./NavigationHeader";
 import NewQuestion from "../questions/NewQuestion";
-import {_getUsers, _getQuestions} from "../api/_DATA";
+import {_getQuestions, _getUsers} from "../api/_DATA";
 import {receiveDataAction} from '../api/api.action';
 import Login from "./Login";
 import Home from "./Home";
 import Leaderboard from "./Leaderboard";
-
+import {isLogged} from "../users/user.utils";
 async function getOrUpdateUserData(){
     const users = await _getUsers();
     const questions = await _getQuestions();
@@ -22,15 +22,32 @@ class App extends React.Component{
         super(props);
         this.state = {
             user: null,
-            show_answered: false
+            show_answered: false,
+            path_no_login: null,
         }
     }
     handleLogin(selectedUser) {
+        // TODO can move this into redux as action/reducer later.
         this.setState({user: selectedUser});
     }
     componentDidMount() {
         getOrUpdateUserData.call(this);
         this.props.store.subscribe(() => this.forceUpdate())
+        const path = this.props.history.location.pathname;
+        if(path !== "/login" && !isLogged(this.state.user)){
+            this.setState({path_no_login: path})
+        }
+    }
+    componentWillMount() {
+        this.unlisten = this.props.history.listen((location, action) => {
+            const path = location.pathname;
+            if(path !== "/login" && !isLogged(this.state.user)){
+                this.setState({path_no_login: path})
+            }
+        });
+    }
+    componentWillUnmount() {
+        this.unlisten();
     }
 
     handleLogout() {
@@ -40,14 +57,12 @@ class App extends React.Component{
         this.setState({show_answered: !this.state.show_answered})
     }
   render(){
-    const { users, loading, questions} = this.props.store.getState()
+    const { loading } = this.props.store.getState()
     if( loading === true){
       return <h3>Loading</h3>
     }
     return (
         <div className="App">
-
-          <BrowserRouter>
         <NavigationHeader
             user={this.state.user}
             handleLogout={this.handleLogout.bind(this)}
@@ -81,6 +96,7 @@ class App extends React.Component{
                   <Login
                       store={this.props.store}
                       handleLogin={this.handleLogin.bind(this)}
+                      path_no_login={this.state.path_no_login}
                   />
                 )}
               />
@@ -96,11 +112,11 @@ class App extends React.Component{
                 )}
               />
             </Switch>
-          </BrowserRouter>
+
         </div>
       );
     };
   }
 
 
-export default App;
+export default withRouter( App );

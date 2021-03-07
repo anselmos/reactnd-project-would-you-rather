@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from 'react-router-dom';
-function Login({store, handleLogin}) {
+function Login({store, handleLogin, path_no_login}) {
     let history = useHistory();
     const handleLoginBtn = (selectedUser) => {
         handleLogin(selectedUser);
-        history.push("/");
+        history.push(path_no_login? path_no_login: "/");
     }
     const { users } = store.getState();
     let renderQuestions = null;

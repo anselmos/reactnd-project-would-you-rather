@@ -1,5 +1,7 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
+import {isLogged} from '../users/user.utils'
+
 
 function NavigationHeader({
 user,
@@ -20,11 +22,10 @@ handleLogout,
         history.push('/logout');
     }
     const handleLoginBtn = (history) => {
-        // FIXME change into previous url!
         history.push('/login');
     }
     let userLoginData = (<button onClick={handleLoginBtn.bind(this, history)}>Login</button>);
-    if (user && user.name){
+    if (isLogged(user)){
             userLoginData = (
         <div>
                     <div>{user.name}</div>
