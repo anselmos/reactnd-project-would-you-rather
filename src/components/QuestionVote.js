@@ -6,8 +6,8 @@ export const OPTION_TWO=2
 function QuestionVote({users, question, user, voteCallback, store}) {
 
     const user_voted = (
-        question.optionOne.votes.includes(user.id)? OPTION_ONE:
-            question.optionTwo.votes.includes(user.id) ? OPTION_TWO : null
+        question.optionOne.votes.includes(user.id)? question.optionOne:
+            question.optionTwo.votes.includes(user.id) ? question.optionTwo : null
     );
     const userAvatarUrl = (
         <div>
@@ -20,18 +20,26 @@ function QuestionVote({users, question, user, voteCallback, store}) {
         </div>
 
     )
-    // TODO!!
     let number_of_votes_for_user_option = 0;
     let percentage_of_votes_for_user_option = 0;
+    if(user_voted !== null){
+        number_of_votes_for_user_option = user_voted.votes.length;
+        percentage_of_votes_for_user_option = Math.round((
+            (
+                (user_voted.votes.length) /
+                (question.optionOne.votes.length + question.optionTwo.votes.length)
+            ) * 100)
+        *10/10).toString() + "%";
+    }
     return (
                 <tr key={question.id}>
                     <td>{question.id}</td>
                     <td>{userAvatarUrl}</td>
-                    <td style={{backgroundColor: user_voted !== null? user_voted === OPTION_ONE? "green" : '': ''}}>
+                    <td style={{backgroundColor: user_voted !== null? user_voted === question.optionOne? "green" : '': ''}}>
                         {question.optionOne.text}
                         {user_voted ? "" : <button onClick={voteCallback.bind(this, user, OPTION_ONE, question, store)}>Vote </button>}
                     </td>
-                    <td style={{backgroundColor: user_voted !== null? user_voted === OPTION_TWO? "green"  : '': ''}}>
+                    <td style={{backgroundColor: user_voted !== null? user_voted === question.optionTwo? "green"  : '': ''}}>
                         {question.optionTwo.text}
                         {user_voted ? "" : <button onClick={voteCallback.bind(this, user, OPTION_TWO, question, store)}>Vote </button>}
                     </td>
