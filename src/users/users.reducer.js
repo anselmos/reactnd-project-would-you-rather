@@ -2,7 +2,7 @@ import RECEIVE_DATA from "../api/api.types";
 import {VOTE_USER, QUESTION_USER} from "./users.types"
 import {OPTION_ONE, OPTION_TWO} from "../components/QuestionVote";
 
-export function users(state= [], action){
+export function users(state= {}, action){
     switch(action.type){
         case RECEIVE_DATA:
             return action.users
