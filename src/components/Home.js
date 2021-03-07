@@ -11,7 +11,7 @@ function sort_questions([a_key, a_value], [b_key, b_value]) {
 }
 
 function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
-    const { questions} = store.getState()
+    const { users, questions } = store.getState()
     function voteCallbackFunction(vote, question){
         store.dispatch(
             voteOnQuestionAction(user, vote, question)
@@ -24,15 +24,15 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
         return <div> Please log in!</div>
     }
     let renderQuestions = null;
-    if(questions !== null){
+    if(questions !== null) {
         let new_questions = null;
-        if(answeredToggle){
+        if (answeredToggle) {
             new_questions = Object.fromEntries(
                 Object.entries(questions).filter(
                     ([k, v]) => v.optionOne.votes.includes(user.id) || v.optionTwo.votes.includes(user.id)
                 )
             );
-        }else{
+        } else {
             new_questions = Object.fromEntries(
                 Object.entries(questions).filter(
                     ([k, v]) => !(v.optionOne.votes.includes(user.id)) && !(v.optionTwo.votes.includes(user.id))
@@ -40,29 +40,31 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
             );
         }
         const data = Object.entries(new_questions).sort(sort_questions).map(([key, value]) =>
-             (
-                <QuestionVote key={key} question={new_questions[key]} user={user} voteCallback={voteCallbackFunction}/>
-             )
+            (
+                <QuestionVote users={users} key={key} question={new_questions[key]} user={user}
+                              voteCallback={voteCallbackFunction}/>
+            )
         );
-        renderQuestions  = (
+        renderQuestions = (
             <div>
                 <h1>Questions:</h1>
                 <table>
                     <tbody>
-                        <tr>
-                            <th>Option One</th>
-                            <th>Option Two</th>
-                            <th>Voted on Option one</th>
-                            <th>Voted on Option two</th>
-                            <th>Voted?</th>
-                        </tr>
-                            {data}
+                    <tr>
+                        <th>Question Id</th>
+                        <th>Pic. of question creator.</th>
+                        <th>Option One</th>
+                        <th>Option Two</th>
+                        <th>Voted on Option one</th>
+                        <th>Voted on Option two</th>
+                        <th>Voted?</th>
+                    </tr>
+                    {data}
                     </tbody>
                 </table>
             </div>
         )
     }
-
     return (
 
         <div className="navigation-header">
