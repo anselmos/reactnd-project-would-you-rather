@@ -15,7 +15,7 @@ class NewQuestion extends React.Component {
             {
                 optionOneText: option1,
                 optionTwoText: option2,
-                author:this.props.user
+                author:this.props.user.id
             }
         )
         this.props.store.dispatch(
