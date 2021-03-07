@@ -31,7 +31,7 @@ class App extends React.Component{
     }
     handleLogin(selectedUser) {
         // TODO can move this into redux as action/reducer later.
-        this.setState({user: selectedUser});
+        this.setState({user: selectedUser, show_answered: false});
     }
     componentDidMount() {
         getOrUpdateUserData.call(this);
