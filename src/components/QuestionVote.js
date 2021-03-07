@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 export const OPTION_ONE=1
 export const OPTION_TWO=2
 
-function QuestionVote({users, question, user, voteCallback}) {
+function QuestionVote({users, question, user, voteCallback, store}) {
 
     const user_voted = (
         question.optionOne.votes.includes(user.id)? OPTION_ONE:
@@ -29,11 +29,11 @@ function QuestionVote({users, question, user, voteCallback}) {
                     <td>{userAvatarUrl}</td>
                     <td style={{backgroundColor: user_voted !== null? user_voted === OPTION_ONE? "green" : '': ''}}>
                         {question.optionOne.text}
-                        {user_voted ? "" : <button onClick={voteCallback.bind(user, OPTION_ONE, question)}>Vote </button>}
+                        {user_voted ? "" : <button onClick={voteCallback.bind(user, OPTION_ONE, question, store)}>Vote </button>}
                     </td>
                     <td style={{backgroundColor: user_voted !== null? user_voted === OPTION_TWO? "green"  : '': ''}}>
                         {question.optionTwo.text}
-                        {user_voted ? "" : <button onClick={voteCallback.bind(user, OPTION_TWO, question)}>Vote </button>}
+                        {user_voted ? "" : <button onClick={voteCallback.bind(user, OPTION_TWO, question, store)}>Vote </button>}
                     </td>
                     <td>{ user_voted? number_of_votes_for_user_option: "N/A"}</td>
                     <td>{ user_voted? percentage_of_votes_for_user_option: "N/A"}</td>

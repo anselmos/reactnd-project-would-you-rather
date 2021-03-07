@@ -9,17 +9,17 @@ function sort_questions([a_key, a_value], [b_key, b_value]) {
         b_value.timestamp - a_value.timestamp
     );
 }
-
+export function voteCallbackFunction(user, vote, question, store){
+    store.dispatch(
+        voteOnQuestionAction(user, vote, question)
+    )
+    store.dispatch(
+        voteUser(user, vote, question)
+    )
+}
 function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
     const { users, questions } = store.getState()
-    function voteCallbackFunction(vote, question){
-        store.dispatch(
-            voteOnQuestionAction(user, vote, question)
-        )
-        store.dispatch(
-            voteUser(user, vote, question)
-        )
-    }
+
     if(!isLogged(user)){
         return <div> Please log in!</div>
     }
@@ -46,6 +46,7 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
                     key={key}
                     question={new_questions[key]}
                     user={user}
+                    store={store}
                     voteCallback={voteCallbackFunction}
                 />
             )

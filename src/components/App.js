@@ -10,6 +10,9 @@ import Login from "./Login";
 import Home from "./Home";
 import Leaderboard from "./Leaderboard";
 import {isLogged} from "../users/user.utils";
+import NoMatch from "./NoMatch";
+import QuestionById from "./QuestionById";
+
 async function getOrUpdateUserData(){
     const users = await _getUsers();
     const questions = await _getQuestions();
@@ -100,7 +103,14 @@ class App extends React.Component{
                   />
                 )}
               />
+          <Route
+                path="/questions/:questionid"
+                render={() => (
+                    <QuestionById store={this.props.store} user={this.state.user}/>
+                )}
+              />
             <Route
+                exact
                 path="/"
                 render={() => (
                   <Home
@@ -111,6 +121,9 @@ class App extends React.Component{
                   />
                 )}
               />
+            <Route path="*">
+                <NoMatch />
+            </Route>
             </Switch>
 
         </div>
