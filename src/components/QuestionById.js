@@ -4,8 +4,9 @@ import {isLogged} from "../users/user.utils";
 import NoMatch from "./NoMatch";
 import QuestionVote from "./QuestionVote";
 import {voteCallbackFunction} from "./Home"
+import PropTypes from "prop-types";
 
-export default function QuestionById({store, user}) {
+function QuestionById({store, user}) {
   const {users} = store.getState();
   let { questionid } = useParams();
     if(!isLogged(user)){
@@ -39,3 +40,8 @@ export default function QuestionById({store, user}) {
 
   );
 }
+QuestionById.propTypes = {
+  store: PropTypes.object,
+  user: PropTypes.object,
+}
+export default QuestionById;

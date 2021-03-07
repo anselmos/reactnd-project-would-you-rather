@@ -37,14 +37,12 @@ class App extends React.Component{
         getOrUpdateUserData.call(this);
         this.props.store.subscribe(() => this.forceUpdate())
         const path = this.props.history.location.pathname;
-        if(path !== "/login" && !isLogged(this.state.user)){
-            this.setState({path_no_login: path})
+        if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
+            this.setState({path_no_login: path});
         }
-    }
-    componentWillMount() {
         this.unlisten = this.props.history.listen((location, action) => {
             const path = location.pathname;
-            if(path !== "/login" && !isLogged(this.state.user)){
+            if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
                 this.setState({path_no_login: path})
             }
         });
