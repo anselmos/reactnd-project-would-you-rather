@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useHistory } from 'react-router-dom';
 export const OPTION_ONE=1
 export const OPTION_TWO=2
-
 function QuestionVote({users, question, user, voteCallback, store}) {
+    let history = useHistory();
 
     const user_voted = (
         question.optionOne.votes.includes(user.id)? question.optionOne:
@@ -33,7 +34,7 @@ function QuestionVote({users, question, user, voteCallback, store}) {
     }
     return (
                 <tr key={question.id}>
-                    <td>{question.id}</td>
+                    <td><button onClick={()=> {history.push("/questions/" + question.id)}}>{question.id}</button></td>
                     <td>{userAvatarUrl}</td>
                     <td style={{backgroundColor: user_voted !== null? user_voted === question.optionOne? "green" : '': ''}}>
                         {question.optionOne.text}
