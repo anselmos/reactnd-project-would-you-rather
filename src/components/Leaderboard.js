@@ -14,7 +14,7 @@ function Leaderboard({user, store}) {
     function([a_key, a_value], [b_key, b_value]) {
             return (
                 (Object.keys(b_value.answers).length +
-                Object.keys(b_value.answers).length)
+                Object.keys(b_value.questions).length)
                 -
                 (Object.keys(a_value.answers).length +
                 Object.keys(a_value.questions).length )
