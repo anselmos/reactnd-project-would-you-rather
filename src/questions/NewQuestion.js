@@ -1,5 +1,5 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import {addQuestionAction} from './questions.action'
 import {formatQuestion} from '../api/_DATA';
 import {newQuestionUser} from '../users/users.action'
@@ -56,7 +56,10 @@ class NewQuestion extends React.Component {
         )
     }
 }
-NewQuestion.propTypes = {
 
+
+NewQuestion.propTypes = {
+  store: PropTypes.object,
+  user: PropTypes.object,
 }
 export default NewQuestion;

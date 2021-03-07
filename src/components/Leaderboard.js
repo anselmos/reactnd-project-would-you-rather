@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 
 
 function Leaderboard({user, store}) {
-    const { users, loading, questions} = store.getState()
+    const { users } = store.getState()
     if(user === null){
         return (
             <div> Please log in!</div>
         )
     }
-    // FIXME move this business-logic into redux!!!!!
     // to reverse the sort you would need to move a_value first : a_value - b_value
     const users_data = Object.entries(users).sort(
     function([a_key, a_value], [b_key, b_value]) {
