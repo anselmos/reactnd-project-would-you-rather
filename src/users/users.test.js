@@ -1,6 +1,7 @@
 import * as actions from './users.action'
 import * as types from './users.types'
-import {QUESTION_USER} from "./users.types";
+
+
 
 describe('users actions', () => {
   it('should create an action for user to vote', () => {
