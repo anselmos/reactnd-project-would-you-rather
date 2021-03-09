@@ -102,8 +102,8 @@ class App extends React.Component{
                 path="/"
                 render={() => (
                   <Home
+                      //FIXME move to useState inside of Home!
                       answeredToggle={this.state.show_answered}
-                      user={this.state.user}
                       answeredToggleCallback={this.handleAnsweredToggle.bind(this)}
                   />
                 )}
