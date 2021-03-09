@@ -25,7 +25,6 @@ class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            show_answered: false,
             path_no_login: null,
         }
     }
@@ -47,9 +46,7 @@ class App extends React.Component{
         this.unlisten();
     }
 
-    handleAnsweredToggle(){
-        this.setState({show_answered: !this.state.show_answered})
-    }
+
   render(){
     if( this.props.loading === true){
       return <h3>Loading</h3>
@@ -96,11 +93,7 @@ class App extends React.Component{
                 exact
                 path="/"
                 render={() => (
-                  <Home
-                      //FIXME move to useState inside of Home!
-                      answeredToggle={this.state.show_answered}
-                      answeredToggleCallback={this.handleAnsweredToggle.bind(this)}
-                  />
+                  <Home />
                 )}
               />
             <Route path="*">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
@@ -20,7 +20,8 @@ export function voteCallbackFunction(user, vote, question, dispatch){
         voteUserAction(user, vote, question)
     )
 }
-function Home({auth_user, answeredToggle=false, answeredToggleCallback, users, questions}) {
+function Home({auth_user, users, questions}) {
+    const [answeredToggle, toggleAnswered] = useState(false);
     if(!isLogged(auth_user)){
         return <div> Please log in!</div>
     }
@@ -73,7 +74,7 @@ function Home({auth_user, answeredToggle=false, answeredToggleCallback, users, q
     return (
 
         <div className="navigation-header">
-        Show answered ? <input type="checkbox" onClick={answeredToggleCallback}/>
+        Show answered ? <input type="checkbox"  onClick={() => toggleAnswered(!answeredToggle)}/>
             {renderQuestions}
         </div>
     )
