@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import {useHistory} from 'react-router-dom';
 import {connect} from "react-redux";
 import {setAuthUserAction} from "../auth/auth.action";
+import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 
 function Login({path_no_login, users, dispatch}) {
     let history = useHistory();
@@ -15,17 +17,15 @@ function Login({path_no_login, users, dispatch}) {
          const data = Object.keys(users).map(key =>
              (
                 <div key={key}>
-                    <button
+                    <Button
                         onClick={handleLoginBtn.bind(this, users[key])}
                     >
                         Login as {users[key].name}
-                        <img
+                        <Avatar
                             src={users[key].avatarURL}
-                            width="100"
-                            height="100"
                             alt={users[key].name}
                         />
-                    </button>
+                    </Button>
 
                 </div>
              )
@@ -37,7 +37,7 @@ function Login({path_no_login, users, dispatch}) {
         )
     }
     return (
-        <div className="navigation-header">
+        <div>
             {renderQuestions}
         </div>
     )

@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 
 // to reverse the sort you would need to move a_value first : a_value - b_value
 function sort_questions_answeres_count([a_key, a_value], [b_key, b_value]) {
@@ -26,36 +31,36 @@ function Leaderboard({auth_user, users}) {
             sort_questions_answeres_count
         ).map(([key, value]) =>
          (
-                 <tr key={key}>
-                     <td>{value.name}</td>
-                     <td>
+                 <TableRow key={key}>
+                     <TableCell>{value.name}</TableCell>
+                     <TableCell>
                          <img
                             src={value.avatarURL}
                             width="100"
                             height="100"
                             alt={value.name}
-                        /></td>
-                     <td>{Object.keys(value.questions).length}</td>
-                     <td>{Object.keys(value.answers).length}</td>
-                 </tr>
+                        /></TableCell>
+                     <TableCell>{Object.keys(value.questions).length}</TableCell>
+                     <TableCell>{Object.keys(value.answers).length}</TableCell>
+                 </TableRow>
          )
     );
 
     return (
-        <div className="navigation-header">
-            <table>
-                <thead>
-                <tr>
-                    <td>User name</td>
-                    <td>User Picture</td>
-                    <td>Nb of questions asked</td>
-                    <td>Nb of questions answered</td>
-                </tr>
-                </thead>
-                <tbody>
+        <div>
+            <Table>
+                <TableHead>
+                <TableRow>
+                    <TableCell>User name</TableCell>
+                    <TableCell>User Picture</TableCell>
+                    <TableCell>Nb of questions asked</TableCell>
+                    <TableCell>Nb of questions answered</TableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody>
                 {users_data}
-                </tbody>
-            </table>
+                </TableBody>
+            </Table>
         </div>
     )
 }

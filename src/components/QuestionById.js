@@ -6,6 +6,11 @@ import QuestionVote from "./QuestionVote";
 import {voteCallbackFunction} from "./Home"
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import Table from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
 
 function QuestionById({auth_user, users, questions}) {
   let { questionid } = useParams();
@@ -17,24 +22,26 @@ function QuestionById({auth_user, users, questions}) {
         return <NoMatch />
     }
     return (
-      <table>
-          <tbody>
-          <tr>
-              <th>Question Id</th>
-              <th>Pic. of question creator.</th>
-              <th>Option One</th>
-              <th>Option Two</th>
-              <th>Nb of people Voted on user Option:</th>
-              <th>Percentage of people Voted on user Option:</th>
-          </tr>
+      <Table>
+          <TableHead>
+              <TableRow>
+                  <TableCell>Question Id</TableCell>
+                  <TableCell>Pic. of question creator.</TableCell>
+                  <TableCell>Option One</TableCell>
+                  <TableCell>Option Two</TableCell>
+                  <TableCell>Nb of people Voted on user Option:</TableCell>
+                  <TableCell>Percentage of people Voted on user Option:</TableCell>
+              </TableRow>
+          </TableHead>
+          <TableBody>
               <QuestionVote
                 users={users}
                 question={question}
                 user={auth_user}
                 voteCallback={voteCallbackFunction}
               />
-          </tbody>
-      </table>
+          </TableBody>
+      </Table>
 
   );
 }
