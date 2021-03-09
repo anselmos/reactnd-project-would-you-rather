@@ -42,7 +42,7 @@ function Leaderboard({auth_user, users}) {
     );
 
     return (
-        <div className="navigation-header">
+        <div>
             <table>
                 <thead>
                 <tr>

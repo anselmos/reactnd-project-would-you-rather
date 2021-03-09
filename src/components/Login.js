@@ -37,7 +37,7 @@ function Login({path_no_login, users, dispatch}) {
         )
     }
     return (
-        <div className="navigation-header">
+        <div>
             {renderQuestions}
         </div>
     )

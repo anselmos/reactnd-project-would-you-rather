@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
 import {setAuthUserAction} from "../auth/auth.action";
+import {AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+
 
 function NavigationHeader({
 auth_user,
@@ -26,23 +28,23 @@ dispatch
     const handleLoginBtn = (history) => {
         history.push('/login');
     }
-    let userLoginData = (<button onClick={handleLoginBtn.bind(this, history)}>Login</button>);
-    if (isLogged(auth_user)){
-            userLoginData = (
-        <div>
-                    <div>{auth_user.name}</div>
-                <button onClick={handleLogoutBtn.bind(this, history)}>Logout</button>
-        </div>
-    )
-    }
-
     return (
-        <div className="navigation-header">
-                <button onClick={handleHome.bind(this, history)}>Home</button>
-                <button onClick={handleNewQuestion.bind(this, history)}>New Question</button>
-                <button onClick={handleLeaderBoard.bind(this, history)}>Leader Board</button>
-            {userLoginData}
-        </div>
+        <AppBar color="inherit" position="static">
+          <Toolbar>
+            <Typography variant="h6" >
+              Would you rather ... ?
+            </Typography>
+            <Button color="primary" onClick={handleHome.bind(this, history)}>Home</Button>
+            <Button color="primary" onClick={handleNewQuestion.bind(this, history)}>New Question</Button>
+            <Button color="primary" onClick={handleLeaderBoard.bind(this, history)}>Leader Board</Button>
+              {
+                  auth_user ?
+                  <div>{auth_user.name} <Button  color="primary" onClick={handleLogoutBtn.bind(this, history)}>Logout</Button></div>
+                  :
+                  <Button  color="primary" onClick={handleLoginBtn.bind(this, history)}>Login</Button>
+              }
+          </Toolbar>
+        </AppBar>
     );
 }
 

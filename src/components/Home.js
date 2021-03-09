@@ -73,7 +73,7 @@ function Home({auth_user, users, questions}) {
     }
     return (
 
-        <div className="navigation-header">
+        <div>
         Show answered ? <input type="checkbox"  onClick={() => toggleAnswered(!answeredToggle)}/>
             {renderQuestions}
         </div>
