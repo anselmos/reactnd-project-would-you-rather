@@ -1,11 +1,10 @@
 import React from "react";
-import {isLogged} from '../users/user.utils'
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
 import {setAuthUserAction} from "../auth/auth.action";
-import {AppBar, Toolbar, Typography, Button } from "@material-ui/core";
-
+import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
 
 function NavigationHeader({
 auth_user,
@@ -39,7 +38,13 @@ dispatch
             <Button color="primary" onClick={handleLeaderBoard.bind(this, history)}>Leader Board</Button>
               {
                   auth_user ?
-                  <div>{auth_user.name} <Button  color="primary" onClick={handleLogoutBtn.bind(this, history)}>Logout</Button></div>
+                  <div>
+                      <Avatar
+                            src={auth_user.avatarURL}
+                            alt={auth_user.name}
+                        />{auth_user.name}
+                        <Button  color="primary" onClick={handleLogoutBtn.bind(this, history)}>Logout</Button>
+                  </div>
                   :
                   <Button  color="primary" onClick={handleLoginBtn.bind(this, history)}>Login</Button>
               }

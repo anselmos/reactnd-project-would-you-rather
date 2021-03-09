@@ -4,8 +4,12 @@ import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
 import {voteUserAction} from "../users/users.action";
 import {isLogged} from "../users/user.utils";
-import { connect } from "react-redux";
-
+import {connect} from "react-redux";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 
 function sort_questions([a_key, a_value], [b_key, b_value]) {
     return (
@@ -55,19 +59,21 @@ function Home({auth_user, users, questions}) {
         renderQuestions = (
             <div>
                 <h1>Questions {answeredToggle? "answered": "unanswered"}:</h1>
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>Question Id</th>
-                        <th>Pic. of question creator.</th>
-                        <th>Option One</th>
-                        <th>Option Two</th>
-                        <th>Nb of people Voted on user Option:</th>
-                        <th>Percentage of people Voted on user Option:</th>
-                    </tr>
+                <Table>
+                    <TableHead>
+                    <TableRow>
+                        <TableCell>Question Id</TableCell>
+                        <TableCell>Pic. of question creator.</TableCell>
+                        <TableCell>Option One</TableCell>
+                        <TableCell>Option Two</TableCell>
+                        <TableCell>Nb of people Voted on user Option:</TableCell>
+                        <TableCell>Percentage of people Voted on user Option:</TableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
                     {data}
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
             </div>
         )
     }

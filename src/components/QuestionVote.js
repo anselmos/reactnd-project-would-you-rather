@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {connect} from "react-redux";
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+
 export const OPTION_ONE=1
 export const OPTION_TWO=2
 function QuestionVote({users, question, user, voteCallback, dispatch}) {
@@ -34,20 +38,20 @@ function QuestionVote({users, question, user, voteCallback, dispatch}) {
         *10/10).toString() + "%";
     }
     return (
-                <tr key={question.id}>
-                    <td><button onClick={()=> {history.push("/questions/" + question.id)}}>{question.id}</button></td>
-                    <td>{userAvatarUrl}</td>
-                    <td style={{backgroundColor: user_voted !== null? user_voted === question.optionOne? "green" : '': ''}}>
+                <TableRow key={question.id}>
+                    <TableCell><Button color="primary" onClick={()=> {history.push("/questions/" + question.id)}}>{question.id}</Button></TableCell>
+                    <TableCell>{userAvatarUrl}</TableCell>
+                    <TableCell style={{backgroundColor: user_voted !== null? user_voted === question.optionOne? "green" : '': ''}}>
                         {question.optionOne.text}
-                        {user_voted ? "" : <button onClick={voteCallback.bind(this, user, OPTION_ONE, question, dispatch)}>Vote </button>}
-                    </td>
-                    <td style={{backgroundColor: user_voted !== null? user_voted === question.optionTwo? "green"  : '': ''}}>
+                        {user_voted ? "" : <Button color="secondary" onClick={voteCallback.bind(this, user, OPTION_ONE, question, dispatch)}>Vote </Button>}
+                    </TableCell>
+                    <TableCell style={{backgroundColor: user_voted !== null? user_voted === question.optionTwo? "green"  : '': ''}}>
                         {question.optionTwo.text}
-                        {user_voted ? "" : <button onClick={voteCallback.bind(this, user, OPTION_TWO, question, dispatch)}>Vote </button>}
-                    </td>
-                    <td>{ user_voted? number_of_votes_for_user_option: "N/A"}</td>
-                    <td>{ user_voted? percentage_of_votes_for_user_option: "N/A"}</td>
-                </tr>
+                        {user_voted ? "" : <Button color="secondary" onClick={voteCallback.bind(this, user, OPTION_TWO, question, dispatch)}>Vote </Button>}
+                    </TableCell>
+                    <TableCell>{ user_voted? number_of_votes_for_user_option: "N/A"}</TableCell>
+                    <TableCell>{ user_voted? percentage_of_votes_for_user_option: "N/A"}</TableCell>
+                </TableRow>
     )
 }
 

@@ -4,6 +4,10 @@ import {addQuestionAction} from './questions.action'
 import {formatQuestion} from '../api/_DATA';
 import {newQuestionUser} from '../users/users.action'
 import {connect} from "react-redux";
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 
 class NewQuestion extends React.Component {
     addItem = (e) => {
@@ -35,24 +39,24 @@ class NewQuestion extends React.Component {
         }
         return (
 
-            <div className="new-question-top">
-                <div className="new-question-title">Create New Question</div>
-                <div className="new-question-body">
-                    <div className="new-question-complete">Complete the question:</div>
-                    <div className="new-question-would-you-rather">Would you rather ...</div>
-                    <input
+            <div >
+                <Paper className="new-question-title">Create New Question</Paper>
+                <Grid >
+                    <Paper className="new-question-would-you-rather">Would you rather ...</Paper>
+                    <Input
                         type='text'
                         placeholder="Enter option one text here"
                         ref={(input) => this.option1 = input}
                     />
-                    <div className="new-question-or">OR</div>
-                    <input
+                    <Paper className="new-question-or">OR</Paper>
+                    <Input
                         type='text'
                         placeholder="Enter option two text here"
                         ref={(input) => this.option2 = input}
                     />
-                    <button className="new-question-submit" onClick={this.addItem}>Submit</button>
-                </div>
+
+                </Grid>
+                <Button className="new-question-submit" onClick={this.addItem}>Submit</Button>
             </div>
         )
     }
