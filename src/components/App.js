@@ -51,9 +51,6 @@ class App extends React.Component{
         this.unlisten();
     }
 
-    handleLogout() {
-        this.setState({user: null});
-    }
     handleAnsweredToggle(){
         this.setState({show_answered: !this.state.show_answered})
     }
@@ -63,9 +60,7 @@ class App extends React.Component{
     }
     return (
         <div className="App">
-        <NavigationHeader
-            handleLogout={this.handleLogout.bind(this)}
-        />
+        <NavigationHeader />
           <div className="spacer-header-body"/>
             <Switch>
                 <Route

@@ -3,11 +3,12 @@ import {isLogged} from '../users/user.utils'
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
+import {setAuthUserAction} from "../auth/auth.action";
 
 function NavigationHeader({
 auth_user,
 history,
-handleLogout,
+dispatch
 }) {
     const handleHome = (history) => {
         history.push('/');
@@ -19,7 +20,7 @@ handleLogout,
         history.push('/leaderboard');
     }
     const handleLogoutBtn = (history) => {
-        handleLogout();
+        dispatch(setAuthUserAction(null))
         history.push('/logout');
     }
     const handleLoginBtn = (history) => {
@@ -48,7 +49,7 @@ handleLogout,
 NavigationHeader.propTypes = {
   auth_user: PropTypes.object,
   history: PropTypes.object,
-  handleLogout: PropTypes.func,
+  dispatch: PropTypes.func,
 }
 function mapStateToProps ({ users, questions, auth_user }) {
   return {
