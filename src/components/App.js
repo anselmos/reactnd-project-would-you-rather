@@ -40,16 +40,16 @@ class App extends React.Component{
         if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
             this.setState({path_no_login: path});
         }
-        // this.unlisten = this.props.history.listen((location, action) => {
-        //     const path = location.pathname;
-        //     if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
-        //         this.setState({path_no_login: path})
-        //     }
-        // });
+        this.unlisten = this.props.history.listen((location, action) => {
+            const path = location.pathname;
+            if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
+                this.setState({path_no_login: path})
+            }
+        });
     }
-    // componentWillUnmount() {
-    //     this.unlisten();
-    // }
+    componentWillUnmount() {
+        this.unlisten();
+    }
 
     handleLogout() {
         this.setState({user: null});
