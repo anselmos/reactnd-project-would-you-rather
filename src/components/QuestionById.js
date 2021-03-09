@@ -7,9 +7,9 @@ import {voteCallbackFunction} from "./Home"
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-function QuestionById({user, users, questions}) {
+function QuestionById({auth_user, users, questions}) {
   let { questionid } = useParams();
-    if(!isLogged(user)){
+    if(!isLogged(auth_user)){
         return <div> Please log in!</div>
     }
   const question = questions[questionid];
@@ -30,7 +30,7 @@ function QuestionById({user, users, questions}) {
               <QuestionVote
                 users={users}
                 question={question}
-                user={user}
+                user={auth_user}
                 voteCallback={voteCallbackFunction}
               />
           </tbody>
@@ -43,10 +43,11 @@ QuestionById.propTypes = {
   users: PropTypes.object,
   questions: PropTypes.object,
 }
-function mapStateToProps ({ users, questions }) {
+function mapStateToProps ({ users, questions, auth_user }) {
   return {
     users: users,
     questions: questions,
+    auth_user: auth_user,
   }
 }
 export default connect(mapStateToProps)(QuestionById);

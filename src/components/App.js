@@ -25,24 +25,19 @@ class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            user: null,
-            show_answered: false,
             path_no_login: null,
         }
     }
-    handleLogin(selectedUser) {
-        // TODO can move this into redux as action/reducer later.
-        this.setState({user: selectedUser, show_answered: false});
-    }
+
     componentDidMount() {
         getOrUpdateUserData.call(this);
         const path = this.props.history.location.pathname;
-        if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
+        if(path !== "/login" && path !=="/logout" && !isLogged(this.props.auth_user)){
             this.setState({path_no_login: path});
         }
         this.unlisten = this.props.history.listen((location, action) => {
             const path = location.pathname;
-            if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
+            if(path !== "/login" && path !=="/logout" && !isLogged(this.props.auth_user)){
                 this.setState({path_no_login: path})
             }
         });
@@ -51,38 +46,26 @@ class App extends React.Component{
         this.unlisten();
     }
 
-    handleLogout() {
-        this.setState({user: null});
-    }
-    handleAnsweredToggle(){
-        this.setState({show_answered: !this.state.show_answered})
-    }
-  render(){
 
+  render(){
     if( this.props.loading === true){
       return <h3>Loading</h3>
     }
     return (
         <div className="App">
-        <NavigationHeader
-            user={this.state.user}
-            handleLogout={this.handleLogout.bind(this)}
-        />
+        <NavigationHeader />
           <div className="spacer-header-body"/>
             <Switch>
                 <Route
                 path="/add"
                 render={() => (
-                  <NewQuestion user={this.state.user}
-                  />
+                  <NewQuestion />
                 )}
               />
               <Route
                 path="/leaderboard"
                 render={() => (
-                  <Leaderboard
-                      user={this.state.user}
-                  />
+                  <Leaderboard />
                 )}
               />
                <Route
@@ -95,7 +78,6 @@ class App extends React.Component{
                 path="/login"
                 render={() => (
                   <Login
-                      handleLogin={this.handleLogin.bind(this)}
                       path_no_login={this.state.path_no_login}
                   />
                 )}
@@ -111,11 +93,7 @@ class App extends React.Component{
                 exact
                 path="/"
                 render={() => (
-                  <Home
-                      answeredToggle={this.state.show_answered}
-                      user={this.state.user}
-                      answeredToggleCallback={this.handleAnsweredToggle.bind(this)}
-                  />
+                  <Home />
                 )}
               />
             <Route path="*">
@@ -127,9 +105,10 @@ class App extends React.Component{
       );
     };
   }
-function mapStateToProps ({ users, loading }) {
+function mapStateToProps ({ users, loading, auth_user }) {
   return {
-    loading: loading
+    loading: loading,
+    auth_user: auth_user
   }
 }
 

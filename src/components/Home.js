@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
@@ -20,8 +20,9 @@ export function voteCallbackFunction(user, vote, question, dispatch){
         voteUserAction(user, vote, question)
     )
 }
-function Home({user, store, answeredToggle=false, answeredToggleCallback, users, questions}) {
-    if(!isLogged(user)){
+function Home({auth_user, users, questions}) {
+    const [answeredToggle, toggleAnswered] = useState(false);
+    if(!isLogged(auth_user)){
         return <div> Please log in!</div>
     }
     let renderQuestions = null;
@@ -30,13 +31,13 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback, users,
         if (answeredToggle) {
             new_questions = Object.fromEntries(
                 Object.entries(questions).filter(
-                    ([k, v]) => v.optionOne.votes.includes(user.id) || v.optionTwo.votes.includes(user.id)
+                    ([k, v]) => v.optionOne.votes.includes(auth_user.id) || v.optionTwo.votes.includes(auth_user.id)
                 )
             );
         } else {
             new_questions = Object.fromEntries(
                 Object.entries(questions).filter(
-                    ([k, v]) => !(v.optionOne.votes.includes(user.id)) && !(v.optionTwo.votes.includes(user.id))
+                    ([k, v]) => !(v.optionOne.votes.includes(auth_user.id)) && !(v.optionTwo.votes.includes(auth_user.id))
                 )
             );
         }
@@ -46,8 +47,7 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback, users,
                     users={users}
                     key={key}
                     question={new_questions[key]}
-                    user={user}
-                    store={store}
+                    user={auth_user}
                     voteCallback={voteCallbackFunction}
                 />
             )
@@ -74,7 +74,7 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback, users,
     return (
 
         <div className="navigation-header">
-        Show answered ? <input type="checkbox" onClick={answeredToggleCallback}/>
+        Show answered ? <input type="checkbox"  onClick={() => toggleAnswered(!answeredToggle)}/>
             {renderQuestions}
         </div>
     )
@@ -90,10 +90,11 @@ Home.propTypes = {
 
 }
 
-function mapStateToProps ({ users, questions }) {
+function mapStateToProps ({ users, questions, auth_user }) {
   return {
     users: users,
     questions: questions,
+    auth_user: auth_user,
   }
 }
 export default connect(mapStateToProps)(Home);
