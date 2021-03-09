@@ -51,7 +51,7 @@ NavigationHeader.propTypes = {
   history: PropTypes.object,
   dispatch: PropTypes.func,
 }
-function mapStateToProps ({ users, questions, auth_user }) {
+function mapStateToProps ({ auth_user }) {
   return {
     auth_user: auth_user
   }

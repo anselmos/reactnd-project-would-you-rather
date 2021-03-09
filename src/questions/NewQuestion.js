@@ -4,6 +4,7 @@ import {addQuestionAction} from './questions.action'
 import {formatQuestion} from '../api/_DATA';
 import {newQuestionUser} from '../users/users.action'
 import {connect} from "react-redux";
+
 class NewQuestion extends React.Component {
     addItem = (e) => {
         e.preventDefault();
@@ -15,19 +16,19 @@ class NewQuestion extends React.Component {
             {
                 optionOneText: option1,
                 optionTwoText: option2,
-                author:this.props.user.id
+                author:this.props.auth_user.id
             }
         )
         this.props.dispatch(
             addQuestionAction(question)
         )
         this.props.dispatch(
-            newQuestionUser(this.props.user, question)
+            newQuestionUser(this.props.auth_user, question)
         )
     }
 
     render() {
-        if(this.props.user === null){
+        if(this.props.auth_user === null){
             return (
             <div>Please log in!</div>
             )
@@ -59,7 +60,12 @@ class NewQuestion extends React.Component {
 
 
 NewQuestion.propTypes = {
-  store: PropTypes.object,
-  user: PropTypes.object,
+  dispatch: PropTypes.func,
+  auth_user: PropTypes.object,
 }
-export default connect()(NewQuestion);
+function mapStateToProps ({ auth_user }) {
+  return {
+    auth_user: auth_user
+  }
+}
+export default connect(mapStateToProps)(NewQuestion);

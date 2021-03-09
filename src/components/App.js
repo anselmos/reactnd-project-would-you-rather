@@ -66,15 +66,13 @@ class App extends React.Component{
                 <Route
                 path="/add"
                 render={() => (
-                  <NewQuestion user={this.state.user}
-                  />
+                  <NewQuestion />
                 )}
               />
               <Route
                 path="/leaderboard"
                 render={() => (
-                  <Leaderboard
-                  />
+                  <Leaderboard />
                 )}
               />
                <Route
