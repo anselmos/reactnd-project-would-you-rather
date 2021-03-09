@@ -4,11 +4,10 @@ import {useHistory} from 'react-router-dom';
 import {connect} from "react-redux";
 import {setAuthUserAction} from "../auth/auth.action";
 
-function Login({handleLogin, path_no_login, users, dispatch}) {
+function Login({path_no_login, users, dispatch}) {
     let history = useHistory();
     const handleLoginBtn = (selectedUser) => {
         dispatch(setAuthUserAction(selectedUser))
-        // handleLogin(selectedUser);
         history.push(path_no_login? path_no_login: "/");
     }
     let renderQuestions = null;

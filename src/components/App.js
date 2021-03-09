@@ -25,24 +25,20 @@ class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            user: null,
             show_answered: false,
             path_no_login: null,
         }
     }
-    handleLogin(selectedUser) {
-        // TODO can move this into redux as action/reducer later.
-        this.setState({user: selectedUser, show_answered: false});
-    }
+
     componentDidMount() {
         getOrUpdateUserData.call(this);
         const path = this.props.history.location.pathname;
-        if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
+        if(path !== "/login" && path !=="/logout" && !isLogged(this.props.auth_user)){
             this.setState({path_no_login: path});
         }
         this.unlisten = this.props.history.listen((location, action) => {
             const path = location.pathname;
-            if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
+            if(path !== "/login" && path !=="/logout" && !isLogged(this.props.auth_user)){
                 this.setState({path_no_login: path})
             }
         });
@@ -85,7 +81,6 @@ class App extends React.Component{
                 path="/login"
                 render={() => (
                   <Login
-                      handleLogin={this.handleLogin.bind(this)}
                       path_no_login={this.state.path_no_login}
                   />
                 )}
