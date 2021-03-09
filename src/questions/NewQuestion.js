@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {addQuestionAction} from './questions.action'
 import {formatQuestion} from '../api/_DATA';
 import {newQuestionUser} from '../users/users.action'
-
+import {connect} from "react-redux";
 class NewQuestion extends React.Component {
     addItem = (e) => {
         e.preventDefault();
@@ -18,10 +18,10 @@ class NewQuestion extends React.Component {
                 author:this.props.user.id
             }
         )
-        this.props.store.dispatch(
+        this.props.dispatch(
             addQuestionAction(question)
         )
-        this.props.store.dispatch(
+        this.props.dispatch(
             newQuestionUser(this.props.user, question)
         )
     }
@@ -62,4 +62,4 @@ NewQuestion.propTypes = {
   store: PropTypes.object,
   user: PropTypes.object,
 }
-export default NewQuestion;
+export default connect()(NewQuestion);

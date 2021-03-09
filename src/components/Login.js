@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from 'react-router-dom';
-function Login({store, handleLogin, path_no_login}) {
+import { connect } from "react-redux";
+
+function Login({handleLogin, path_no_login, users}) {
     let history = useHistory();
     const handleLoginBtn = (selectedUser) => {
         handleLogin(selectedUser);
         history.push(path_no_login? path_no_login: "/");
     }
-    const { users } = store.getState();
     let renderQuestions = null;
     if(users !== null){
          const data = Object.keys(users).map(key =>
@@ -45,4 +46,10 @@ function Login({store, handleLogin, path_no_login}) {
 Login.propTypes = {
   store: PropTypes.object.isRequired,
 }
-export default Login;
+function mapStateToProps ({ users, questions }) {
+  return {
+    users: users,
+    questions: questions,
+  }
+}
+export default connect(mapStateToProps)(Login);

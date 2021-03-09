@@ -4,22 +4,23 @@ import QuestionVote from "./QuestionVote";
 import {voteOnQuestionAction} from '../questions/questions.action'
 import {voteUserAction} from "../users/users.action";
 import {isLogged} from "../users/user.utils";
+import { connect } from "react-redux";
+
+
 function sort_questions([a_key, a_value], [b_key, b_value]) {
     return (
         b_value.timestamp - a_value.timestamp
     );
 }
-export function voteCallbackFunction(user, vote, question, store){
-    store.dispatch(
+export function voteCallbackFunction(user, vote, question, dispatch){
+    dispatch(
         voteOnQuestionAction(user, vote, question)
     )
-    store.dispatch(
+    dispatch(
         voteUserAction(user, vote, question)
     )
 }
-function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
-    const { users, questions } = store.getState()
-
+function Home({user, store, answeredToggle=false, answeredToggleCallback, users, questions}) {
     if(!isLogged(user)){
         return <div> Please log in!</div>
     }
@@ -82,9 +83,17 @@ function Home({user, store, answeredToggle=false, answeredToggleCallback}) {
 
 Home.propTypes = {
   user: PropTypes.object,
-  store: PropTypes.object,
+  users: PropTypes.object,
+  questions: PropTypes.object,
   answeredToggle: PropTypes.bool,
   answeredToggleCallback: PropTypes.func,
 
 }
-export default Home;
+
+function mapStateToProps ({ users, questions }) {
+  return {
+    users: users,
+    questions: questions,
+  }
+}
+export default connect(mapStateToProps)(Home);
