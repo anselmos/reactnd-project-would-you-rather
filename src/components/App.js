@@ -85,8 +85,7 @@ class App extends React.Component{
           <Route
                 path="/questions/:questionid"
                 render={() => (
-                    <QuestionById
-                        user={this.state.user}/>
+                    <QuestionById />
                 )}
               />
             <Route
