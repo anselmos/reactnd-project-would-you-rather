@@ -1,10 +1,11 @@
 import React from "react";
-import {withRouter} from "react-router-dom";
 import {isLogged} from '../users/user.utils'
-
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {withRouter} from "react-router-dom";
 
 function NavigationHeader({
-user,
+auth_user,
 history,
 handleLogout,
 }) {
@@ -25,10 +26,10 @@ handleLogout,
         history.push('/login');
     }
     let userLoginData = (<button onClick={handleLoginBtn.bind(this, history)}>Login</button>);
-    if (isLogged(user)){
+    if (isLogged(auth_user)){
             userLoginData = (
         <div>
-                    <div>{user.name}</div>
+                    <div>{auth_user.name}</div>
                 <button onClick={handleLogoutBtn.bind(this, history)}>Logout</button>
         </div>
     )
@@ -44,5 +45,14 @@ handleLogout,
     );
 }
 
-
-export default withRouter( NavigationHeader );
+NavigationHeader.propTypes = {
+  auth_user: PropTypes.object,
+  history: PropTypes.object,
+  handleLogout: PropTypes.func,
+}
+function mapStateToProps ({ users, questions, auth_user }) {
+  return {
+    auth_user: auth_user
+  }
+}
+export default withRouter(connect(mapStateToProps)(NavigationHeader));

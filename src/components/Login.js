@@ -46,7 +46,9 @@ function Login({handleLogin, path_no_login, users, dispatch}) {
 
 
 Login.propTypes = {
-  store: PropTypes.object.isRequired,
+  users: PropTypes.object,
+  questions: PropTypes.object,
+  auth_user: PropTypes.object,
 }
 function mapStateToProps ({ users, questions, auth_user }) {
   return {

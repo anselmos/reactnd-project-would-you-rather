@@ -58,14 +58,12 @@ class App extends React.Component{
         this.setState({show_answered: !this.state.show_answered})
     }
   render(){
-    console.log(this.props.auth_user);
     if( this.props.loading === true){
       return <h3>Loading</h3>
     }
     return (
         <div className="App">
         <NavigationHeader
-            user={this.state.user}
             handleLogout={this.handleLogout.bind(this)}
         />
           <div className="spacer-header-body"/>
