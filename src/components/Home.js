@@ -12,14 +12,13 @@ function sort_questions([a_key, a_value], [b_key, b_value]) {
         b_value.timestamp - a_value.timestamp
     );
 }
-export function voteCallbackFunction(user, vote, question){
-    // FIXME this needs to be fixed before.
-    // store.dispatch(
-    //     voteOnQuestionAction(user, vote, question)
-    // )
-    // store.dispatch(
-    //     voteUserAction(user, vote, question)
-    // )
+export function voteCallbackFunction(user, vote, question, dispatch){
+    dispatch(
+        voteOnQuestionAction(user, vote, question)
+    )
+    dispatch(
+        voteUserAction(user, vote, question)
+    )
 }
 function Home({user, store, answeredToggle=false, answeredToggleCallback, users, questions}) {
     if(!isLogged(user)){

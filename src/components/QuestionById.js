@@ -39,8 +39,9 @@ function QuestionById({user, users, questions}) {
   );
 }
 QuestionById.propTypes = {
-  store: PropTypes.object,
   user: PropTypes.object,
+  users: PropTypes.object,
+  questions: PropTypes.object,
 }
 function mapStateToProps ({ users, questions }) {
   return {

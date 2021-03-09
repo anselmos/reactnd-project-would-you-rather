@@ -74,7 +74,6 @@ class App extends React.Component{
                 path="/add"
                 render={() => (
                   <NewQuestion user={this.state.user}
-                               // store={this.props.store}
                   />
                 )}
               />
@@ -83,7 +82,6 @@ class App extends React.Component{
                 render={() => (
                   <Leaderboard
                       user={this.state.user}
-                      // store={this.props.store}
                   />
                 )}
               />
@@ -97,7 +95,6 @@ class App extends React.Component{
                 path="/login"
                 render={() => (
                   <Login
-                      // store={this.props.store}
                       handleLogin={this.handleLogin.bind(this)}
                       path_no_login={this.state.path_no_login}
                   />
@@ -107,7 +104,6 @@ class App extends React.Component{
                 path="/questions/:questionid"
                 render={() => (
                     <QuestionById
-                        // store={this.props.store}
                         user={this.state.user}/>
                 )}
               />
@@ -118,7 +114,6 @@ class App extends React.Component{
                   <Home
                       answeredToggle={this.state.show_answered}
                       user={this.state.user}
-                      // store={this.props.store}
                       answeredToggleCallback={this.handleAnsweredToggle.bind(this)}
                   />
                 )}
