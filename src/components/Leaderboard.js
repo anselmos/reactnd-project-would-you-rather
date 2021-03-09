@@ -16,8 +16,8 @@ function sort_questions_answeres_count([a_key, a_value], [b_key, b_value]) {
         )
     );
 }
-function Leaderboard({user, users, questions}) {
-    if(user === null){
+function Leaderboard({auth_user, users}) {
+    if(auth_user === null){
         return (
             <div> Please log in!</div>
         )
@@ -62,15 +62,14 @@ function Leaderboard({user, users, questions}) {
 
 
 Leaderboard.propTypes = {
-  user: PropTypes.object,
+  auth_user: PropTypes.object,
   users: PropTypes.object,
-  questions: PropTypes.object,
 
 }
-function mapStateToProps ({ users, questions }) {
+function mapStateToProps ({ users, auth_user }) {
   return {
+    auth_user: auth_user,
     users: users,
-    questions: questions,
   }
 }
 export default connect(mapStateToProps)(Leaderboard);

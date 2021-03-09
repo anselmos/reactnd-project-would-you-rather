@@ -74,7 +74,6 @@ class App extends React.Component{
                 path="/leaderboard"
                 render={() => (
                   <Leaderboard
-                      user={this.state.user}
                   />
                 )}
               />
