@@ -58,7 +58,7 @@ class App extends React.Component{
         this.setState({show_answered: !this.state.show_answered})
     }
   render(){
-
+    console.log(this.props.auth_user);
     if( this.props.loading === true){
       return <h3>Loading</h3>
     }
@@ -127,9 +127,10 @@ class App extends React.Component{
       );
     };
   }
-function mapStateToProps ({ users, loading }) {
+function mapStateToProps ({ users, loading, auth_user }) {
   return {
-    loading: loading
+    loading: loading,
+    auth_user: auth_user
   }
 }
 
