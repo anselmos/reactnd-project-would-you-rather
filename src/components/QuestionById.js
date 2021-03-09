@@ -5,14 +5,13 @@ import NoMatch from "./NoMatch";
 import QuestionVote from "./QuestionVote";
 import {voteCallbackFunction} from "./Home"
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
-function QuestionById({store, user}) {
-  const {users} = store.getState();
+function QuestionById({user, users, questions}) {
   let { questionid } = useParams();
     if(!isLogged(user)){
         return <div> Please log in!</div>
     }
-    const {questions} = store.getState();
   const question = questions[questionid];
   if(question === null || question === undefined){
         return <NoMatch />
@@ -33,7 +32,6 @@ function QuestionById({store, user}) {
                 question={question}
                 user={user}
                 voteCallback={voteCallbackFunction}
-                store={store}
               />
           </tbody>
       </table>
@@ -44,4 +42,10 @@ QuestionById.propTypes = {
   store: PropTypes.object,
   user: PropTypes.object,
 }
-export default QuestionById;
+function mapStateToProps ({ users, questions }) {
+  return {
+    users: users,
+    questions: questions,
+  }
+}
+export default connect(mapStateToProps)(QuestionById);

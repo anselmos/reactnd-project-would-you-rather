@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 // to reverse the sort you would need to move a_value first : a_value - b_value
 function sort_questions_answeres_count([a_key, a_value], [b_key, b_value]) {
@@ -15,8 +16,7 @@ function sort_questions_answeres_count([a_key, a_value], [b_key, b_value]) {
         )
     );
 }
-function Leaderboard({user, store}) {
-    const { users } = store.getState()
+function Leaderboard({user, users, questions}) {
     if(user === null){
         return (
             <div> Please log in!</div>
@@ -63,7 +63,14 @@ function Leaderboard({user, store}) {
 
 Leaderboard.propTypes = {
   user: PropTypes.object,
-  store: PropTypes.object,
+  users: PropTypes.object,
+  questions: PropTypes.object,
 
 }
-export default Leaderboard;
+function mapStateToProps ({ users, questions }) {
+  return {
+    users: users,
+    questions: questions,
+  }
+}
+export default connect(mapStateToProps)(Leaderboard);

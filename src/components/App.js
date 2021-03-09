@@ -12,11 +12,12 @@ import Leaderboard from "./Leaderboard";
 import {isLogged} from "../users/user.utils";
 import NoMatch from "./NoMatch";
 import QuestionById from "./QuestionById";
+import { connect } from "react-redux";
 
 async function getOrUpdateUserData(){
     const users = await _getUsers();
     const questions = await _getQuestions();
-    this.props.store.dispatch(receiveDataAction(users, questions));
+    this.props.dispatch(receiveDataAction(users, questions));
 }
 
 class App extends React.Component{
@@ -35,21 +36,20 @@ class App extends React.Component{
     }
     componentDidMount() {
         getOrUpdateUserData.call(this);
-        this.props.store.subscribe(() => this.forceUpdate())
         const path = this.props.history.location.pathname;
         if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
             this.setState({path_no_login: path});
         }
-        this.unlisten = this.props.history.listen((location, action) => {
-            const path = location.pathname;
-            if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
-                this.setState({path_no_login: path})
-            }
-        });
+        // this.unlisten = this.props.history.listen((location, action) => {
+        //     const path = location.pathname;
+        //     if(path !== "/login" && path !=="/logout" && !isLogged(this.state.user)){
+        //         this.setState({path_no_login: path})
+        //     }
+        // });
     }
-    componentWillUnmount() {
-        this.unlisten();
-    }
+    // componentWillUnmount() {
+    //     this.unlisten();
+    // }
 
     handleLogout() {
         this.setState({user: null});
@@ -58,8 +58,8 @@ class App extends React.Component{
         this.setState({show_answered: !this.state.show_answered})
     }
   render(){
-    const { loading } = this.props.store.getState()
-    if( loading === true){
+
+    if( this.props.loading === true){
       return <h3>Loading</h3>
     }
     return (
@@ -73,7 +73,9 @@ class App extends React.Component{
                 <Route
                 path="/add"
                 render={() => (
-                  <NewQuestion user={this.state.user} store={this.props.store}/>
+                  <NewQuestion user={this.state.user}
+                               // store={this.props.store}
+                  />
                 )}
               />
               <Route
@@ -81,7 +83,7 @@ class App extends React.Component{
                 render={() => (
                   <Leaderboard
                       user={this.state.user}
-                      store={this.props.store}
+                      // store={this.props.store}
                   />
                 )}
               />
@@ -95,7 +97,7 @@ class App extends React.Component{
                 path="/login"
                 render={() => (
                   <Login
-                      store={this.props.store}
+                      // store={this.props.store}
                       handleLogin={this.handleLogin.bind(this)}
                       path_no_login={this.state.path_no_login}
                   />
@@ -104,7 +106,9 @@ class App extends React.Component{
           <Route
                 path="/questions/:questionid"
                 render={() => (
-                    <QuestionById store={this.props.store} user={this.state.user}/>
+                    <QuestionById
+                        // store={this.props.store}
+                        user={this.state.user}/>
                 )}
               />
             <Route
@@ -114,7 +118,7 @@ class App extends React.Component{
                   <Home
                       answeredToggle={this.state.show_answered}
                       user={this.state.user}
-                      store={this.props.store}
+                      // store={this.props.store}
                       answeredToggleCallback={this.handleAnsweredToggle.bind(this)}
                   />
                 )}
@@ -128,6 +132,10 @@ class App extends React.Component{
       );
     };
   }
+function mapStateToProps ({ users, loading }) {
+  return {
+    loading: loading
+  }
+}
 
-
-export default withRouter( App );
+export default withRouter(connect(mapStateToProps)( App ));

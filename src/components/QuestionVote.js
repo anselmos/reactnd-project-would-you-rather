@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from 'react-router-dom';
 export const OPTION_ONE=1
 export const OPTION_TWO=2
-function QuestionVote({users, question, user, voteCallback, store}) {
+function QuestionVote({users, question, user, voteCallback}) {
     let history = useHistory();
 
     const user_voted = (
@@ -38,11 +38,11 @@ function QuestionVote({users, question, user, voteCallback, store}) {
                     <td>{userAvatarUrl}</td>
                     <td style={{backgroundColor: user_voted !== null? user_voted === question.optionOne? "green" : '': ''}}>
                         {question.optionOne.text}
-                        {user_voted ? "" : <button onClick={voteCallback.bind(this, user, OPTION_ONE, question, store)}>Vote </button>}
+                        {user_voted ? "" : <button onClick={voteCallback.bind(this, user, OPTION_ONE, question)}>Vote </button>}
                     </td>
                     <td style={{backgroundColor: user_voted !== null? user_voted === question.optionTwo? "green"  : '': ''}}>
                         {question.optionTwo.text}
-                        {user_voted ? "" : <button onClick={voteCallback.bind(this, user, OPTION_TWO, question, store)}>Vote </button>}
+                        {user_voted ? "" : <button onClick={voteCallback.bind(this, user, OPTION_TWO, question)}>Vote </button>}
                     </td>
                     <td>{ user_voted? number_of_votes_for_user_option: "N/A"}</td>
                     <td>{ user_voted? percentage_of_votes_for_user_option: "N/A"}</td>
