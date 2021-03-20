@@ -1,3 +1,3 @@
 export function isLogged(user) {
-    return user && user.name;
+  return user && user.name;
 }
