@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/reactnd-project-would-you-rather/static/css/main.f6ad16d4.chunk.css",
+    "main.js": "/reactnd-project-would-you-rather/static/js/main.917ef793.chunk.js",
+    "main.js.map": "/reactnd-project-would-you-rather/static/js/main.917ef793.chunk.js.map",
+    "runtime-main.js": "/reactnd-project-would-you-rather/static/js/runtime-main.00008e00.js",
+    "runtime-main.js.map": "/reactnd-project-would-you-rather/static/js/runtime-main.00008e00.js.map",
+    "static/js/2.ee867c53.chunk.js": "/reactnd-project-would-you-rather/static/js/2.ee867c53.chunk.js",
+    "static/js/2.ee867c53.chunk.js.map": "/reactnd-project-would-you-rather/static/js/2.ee867c53.chunk.js.map",
+    "static/js/3.2b2919e3.chunk.js": "/reactnd-project-would-you-rather/static/js/3.2b2919e3.chunk.js",
+    "static/js/3.2b2919e3.chunk.js.map": "/reactnd-project-would-you-rather/static/js/3.2b2919e3.chunk.js.map",
+    "index.html": "/reactnd-project-would-you-rather/index.html",
+    "static/css/main.f6ad16d4.chunk.css.map": "/reactnd-project-would-you-rather/static/css/main.f6ad16d4.chunk.css.map",
+    "static/js/2.ee867c53.chunk.js.LICENSE.txt": "/reactnd-project-would-you-rather/static/js/2.ee867c53.chunk.js.LICENSE.txt",
+    "static/media/john.908d1a61.jpg": "/reactnd-project-would-you-rather/static/media/john.908d1a61.jpg",
+    "static/media/sarah.54c90b0e.jpg": "/reactnd-project-would-you-rather/static/media/sarah.54c90b0e.jpg",
+    "static/media/tyler.e97a69c8.jpg": "/reactnd-project-would-you-rather/static/media/tyler.e97a69c8.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.00008e00.js",
+    "static/js/2.ee867c53.chunk.js",
+    "static/css/main.f6ad16d4.chunk.css",
+    "static/js/main.917ef793.chunk.js"
+  ]
+}
