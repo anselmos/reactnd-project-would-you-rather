@@ -5,6 +5,9 @@ The project uses react and redux for making a simple Would-you-rather questionna
 - voting
 - leaderboard ( for how many questions created and answered.)
 - hard-coded login setup (maybe updated to registration/login in future)
+# Live version of the app
+
+https://anselmos.github.io/reactnd-project-would-you-rather/
 
 ## Available scripts:
 
